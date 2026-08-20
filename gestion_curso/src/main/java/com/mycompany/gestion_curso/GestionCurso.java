@@ -12,7 +12,7 @@ package com.mycompany.gestion_curso;
  */
 
 //Clase principal
-public class Gestion_curso {
+public class GestionCurso {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
