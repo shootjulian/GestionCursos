@@ -7,7 +7,11 @@ package com.mycompany.gestion_curso;
 /**
  *
  * @author Julim
+ * 
+ * //
  */
+
+//Clase principal
 public class Gestion_curso {
 
     public static void main(String[] args) {
