@@ -6,6 +6,8 @@ package com.mycompany.gestion_curso.utils;
 
 import com.mycompany.gestion_curso.model.Curso;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,8 +34,45 @@ public class CursoUtils {
             System.out.println("Error: " + e);
         }
     }
+    
+    public static List<Curso> leerCursos(){
+        List<Curso> cursos = new ArrayList();
+        
+        int codigo;
+        String nombre;
+        boolean disponibilidad;
+        int creditos;
+        double costo;
+        String estado;
+        Curso curso;
+        
+        try{
+            RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
+            
+            while (archivo.getFilePointer() < archivo.length()){
+                
+                codigo = archivo.readInt();
+                nombre = archivo.readUTF();
+                disponibilidad = archivo.readBoolean();
+                creditos = archivo.readInt();
+                costo = archivo.readDouble();
+                estado = archivo.readUTF();
+                
+                curso = new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
+                
+                cursos.add(curso);
+            }
+            
+            archivo.close();
+            
+        } catch (Exception e){
+            System.out.println("Error: " + e);
+        }
+        
+        return cursos;
+    }
 
-    public static Curso buscarCurso(int pcodigo) {
+    public static Curso buscarCursoPorCodigo(int pcodigo) {
         //strcodigo, String nombre, strdisponibilidad, strcreditos, strcosto, String estado;
         int codigo;
         String nombre;
