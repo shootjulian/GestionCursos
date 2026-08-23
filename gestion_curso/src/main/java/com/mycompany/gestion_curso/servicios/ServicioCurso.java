@@ -6,6 +6,7 @@ package com.mycompany.gestion_curso.servicios;
 
 import com.mycompany.gestion_curso.model.Curso;
 import com.mycompany.gestion_curso.utils.CursoUtils;
+import java.util.List;
 
 /**
  *
@@ -13,6 +14,8 @@ import com.mycompany.gestion_curso.utils.CursoUtils;
  */
 public class ServicioCurso {
     
+    
+    //Agregar un curso
     public static boolean agregarCurso(Curso curso) {
 
         if (curso == null) {
@@ -46,6 +49,35 @@ public class ServicioCurso {
         return true;
     }
     
+    //Buscar curso por codigo
+    public static Curso buscarCursoPorCodigo(int pcodigo){
+        if (pcodigo<=0){
+            return null;
+        }
+        
+        return CursoUtils.buscarCursoPorCodigo(pcodigo);
+    }
     
+    //Listar cursos
+    public static List<Curso> listarCursos(){
+        
+        return CursoUtils.leerCursos();
+    }
     
+    //Contar cursos, cuantos cursos hay
+    public static int contarCursos(){
+        List<Curso> cursos = CursoUtils.leerCursos();
+        return cursos.size();
+    }
+    
+    public static double sumarCostos(){
+        List<Curso> cursos = CursoUtils.leerCursos();
+        
+        double total = 0;
+        for(Curso curso: cursos){
+            total += curso.getCosto();
+        }
+        
+        return total;
+    }
 }
