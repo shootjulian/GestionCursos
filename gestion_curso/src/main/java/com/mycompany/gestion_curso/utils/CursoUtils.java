@@ -21,13 +21,16 @@ public class CursoUtils {
             RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
 
             archivo.seek(archivo.length());
+            
+            String nombre = StringUtils.formatearCadena(curso.getNombre(), 31);
+            String estado = StringUtils.formatearCadena(curso.getEstado(), 8);
 
             archivo.writeInt(curso.getCodigo());
-            archivo.writeUTF(curso.getNombre());
+            archivo.writeUTF(nombre);
             archivo.writeBoolean(curso.isDisponibilidad());
             archivo.writeInt(curso.getCreditos());
             archivo.writeDouble(curso.getCosto());
-            archivo.writeUTF(curso.getEstado());
+            archivo.writeUTF(estado);
 
             archivo.close();
         } catch (Exception e) {
@@ -52,11 +55,11 @@ public class CursoUtils {
             while (archivo.getFilePointer() < archivo.length()){
                 
                 codigo = archivo.readInt();
-                nombre = archivo.readUTF();
+                nombre = archivo.readUTF().trim();
                 disponibilidad = archivo.readBoolean();
                 creditos = archivo.readInt();
                 costo = archivo.readDouble();
-                estado = archivo.readUTF();
+                estado = archivo.readUTF().trim();
                 
                 curso = new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
                 
@@ -87,11 +90,11 @@ public class CursoUtils {
             RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
             while (archivo.getFilePointer() < archivo.length()) {
                 codigo = archivo.readInt();
-                nombre = archivo.readUTF();
+                nombre = archivo.readUTF().trim();
                 disponibilidad = archivo.readBoolean();
                 creditos = archivo.readInt();
                 costo = archivo.readDouble();
-                estado = archivo.readUTF();
+                estado = archivo.readUTF().trim();
                 if (pcodigo == codigo) {
                     curso = new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
                     archivo.close();
