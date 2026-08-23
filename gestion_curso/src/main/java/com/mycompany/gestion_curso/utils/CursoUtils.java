@@ -74,6 +74,7 @@ public class CursoUtils {
 
     public static Curso buscarCursoPorCodigo(int pcodigo) {
         //strcodigo, String nombre, strdisponibilidad, strcreditos, strcosto, String estado;
+        
         int codigo;
         String nombre;
         boolean disponibilidad;
@@ -81,6 +82,7 @@ public class CursoUtils {
         double costo;
         String estado;
         Curso curso;
+        
         try {
             RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
             while (archivo.getFilePointer() < archivo.length()) {
