@@ -51,7 +51,7 @@ public class ServicioCurso {
     
     //Buscar curso por codigo
     public static Curso buscarCursoPorCodigo(int pCodigo){
-        if (pcodigo<=0){
+        if (pCodigo<=0){
             return null;
         }
         
@@ -70,6 +70,8 @@ public class ServicioCurso {
         return cursos.size();
     }
     
+    
+    //Sumar costos de todos los cursos
     public static double sumarCostos(){
         List<Curso> cursos = CursoUtils.leerCursos();
         
@@ -80,4 +82,50 @@ public class ServicioCurso {
         
         return total;
     }
+    
+    //Actulizar curso
+    public static boolean actulizarCursoPorCodigo(int pCodigo, String nuevoNombre, double nuevoCosto){
+        
+        if (pCodigo <= 0){
+            return false;
+        }
+        
+        if (nuevoNombre == null || nuevoNombre.trim().isEmpty()){
+            return false;
+        }
+        
+        if (nuevoCosto<0){
+            return false;
+        }
+        
+        Curso cursoExistente = CursoUtils.buscarCursoPorCodigo(pCodigo);
+        
+        if (cursoExistente == null){
+            return false;
+        }
+        
+        return CursoUtils.actulizarCursoPorCodigo(pCodigo, nuevoNombre, nuevoCosto);
+        
+    }
+    
+    //Eliminar curso
+    public static boolean eliminarCursoPorCodigo (int pCodigo){
+        
+        if (pCodigo <= 0){
+            return false;
+        }
+        
+        Curso cursoExistente = CursoUtils.buscarCursoPorCodigo(pCodigo);
+        
+        if (cursoExistente == null){
+            return false;
+        }
+        
+        if ("INACTIVO".equalsIgnoreCase(cursoExistente.getEstado())){
+            return false;
+        }
+        
+        return CursoUtils.eliminarCursoPorCodigo(pCodigo);
+    }
+    
 }
