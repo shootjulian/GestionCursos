@@ -50,12 +50,12 @@ public class ServicioCurso {
     }
     
     //Buscar curso por codigo
-    public static Curso buscarCursoPorCodigo(int pcodigo){
+    public static Curso buscarCursoPorCodigo(int pCodigo){
         if (pcodigo<=0){
             return null;
         }
         
-        return CursoUtils.buscarCursoPorCodigo(pcodigo);
+        return CursoUtils.buscarCursoPorCodigo(pCodigo);
     }
     
     //Listar cursos
