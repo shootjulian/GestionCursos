@@ -4,6 +4,7 @@
 
 package com.mycompany.gestion_curso;
 
+import com.mycompany.gestion_curso.gui.GUIPrincipal;
 import com.mycompany.gestion_curso.utils.StringUtils;
 
 /**
@@ -17,11 +18,7 @@ import com.mycompany.gestion_curso.utils.StringUtils;
 public class GestionCurso {
 
     public static void main(String[] args) {
-        String nombre = "pepe el grillo akd askdnsakdaskdmaskmdakdmsakdmaskd julian";
-        
-        nombre = StringUtils.formatearCadena(nombre, 31);
-        
-        System.out.println(nombre);
-        System.out.println(nombre.length());
+        GUIPrincipal gui = new GUIPrincipal();
+        gui.setVisible(true);
     }
 }
