@@ -35,9 +35,9 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -53,14 +53,15 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jMenu2.add(jMenuItem1);
 
-        jMenuItem2.setText("Actualizar");
-        jMenu2.add(jMenuItem2);
-
         jMenuItem3.setText("Buscar");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
         jMenu2.add(jMenuItem3);
 
         jMenuItem4.setText("Listar");
         jMenu2.add(jMenuItem4);
+
+        jMenuItem2.setText("Actualizar");
+        jMenu2.add(jMenuItem2);
 
         jMenuItem5.setText("Eliminar");
         jMenu2.add(jMenuItem5);
@@ -103,6 +104,13 @@ public class GUIPrincipal extends javax.swing.JFrame {
         GUIAdicionarCurso gui = new GUIAdicionarCurso();
         gui.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        
+        GUIBuscarCurso gui = new GUIBuscarCurso();
+        gui.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
