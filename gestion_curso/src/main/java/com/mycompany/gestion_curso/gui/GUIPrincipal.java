@@ -62,6 +62,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem4);
 
         jMenuItem2.setText("Actualizar");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
         jMenu2.add(jMenuItem2);
 
         jMenuItem5.setText("Eliminar");
@@ -118,6 +119,14 @@ public class GUIPrincipal extends javax.swing.JFrame {
         GUIListarCurso gui = new GUIListarCurso();
         gui.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        
+       GUIActualizarCurso gui = new GUIActualizarCurso();
+       gui.setVisible(true);
+       
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

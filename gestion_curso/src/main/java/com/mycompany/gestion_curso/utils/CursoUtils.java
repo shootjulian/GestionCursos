@@ -141,7 +141,7 @@ public class CursoUtils {
                     estado = StringUtils.formatearCadena(estado, 8);
                     
                     // Regresamos al inicio del registro
-                    posicion = archivo.getFilePointer();
+                    archivo.seek(posicion);
                     
                     // Sobrescribimos TODO el curso
                     archivo.writeInt(codigo);
@@ -199,7 +199,7 @@ public class CursoUtils {
                     estado = StringUtils.formatearCadena(estado, 8);
                     
                     // Regresamos al inicio del registro
-                    posicion = archivo.getFilePointer();
+                    archivo.seek(posicion);
                     
                     // Sobrescribimos TODO el curso
                     archivo.writeInt(codigo);
