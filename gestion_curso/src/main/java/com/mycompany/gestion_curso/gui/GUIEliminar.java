@@ -22,6 +22,7 @@ public class GUIEliminar extends javax.swing.JFrame {
     public GUIEliminar() {
         initComponents();
         setLocationRelativeTo(this);
+        btnEliminar.setEnabled(false);
     }
 
     /**
