@@ -12,14 +12,14 @@ import javax.swing.JOptionPane;
  *
  * @author Julim
  */
-public class GUIAdicionarCurso extends javax.swing.JFrame {
+public class GUIBuscarCurso extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIAdicionarCurso.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIBuscarCurso.class.getName());
 
     /**
-     * Creates new form GUIAdicionarCurso
+     * Creates new form GUIBuscarCurso
      */
-    public GUIAdicionarCurso() {
+    public GUIBuscarCurso() {
         initComponents();
         setLocationRelativeTo(this);
     }
@@ -39,16 +39,16 @@ public class GUIAdicionarCurso extends javax.swing.JFrame {
         txtNombreCurso = new javax.swing.JTextField();
         lblNombreCurso = new javax.swing.JLabel();
         lblDisponibilidad = new javax.swing.JLabel();
-        comboBoxDisponibilidad = new javax.swing.JComboBox<>();
-        spinnerCreditos = new javax.swing.JSpinner();
-        txtCosto = new javax.swing.JTextField();
-        comboBoxEstado = new javax.swing.JComboBox<>();
         lblCreditos = new javax.swing.JLabel();
         lblCosto = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
-        btnAgregar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        txtCreditos = new javax.swing.JTextField();
+        txtDisponibilidad = new javax.swing.JTextField();
+        txtCosto = new javax.swing.JTextField();
+        txtEstado = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -58,17 +58,11 @@ public class GUIAdicionarCurso extends javax.swing.JFrame {
 
         lblCodigo.setText("Código: ");
 
+        txtNombreCurso.setEditable(false);
+
         lblNombreCurso.setText("Nombre del curso: ");
 
         lblDisponibilidad.setText("Disponibilidad: ");
-
-        comboBoxDisponibilidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "No disponible" }));
-        comboBoxDisponibilidad.addActionListener(this::comboBoxDisponibilidadActionPerformed);
-
-        spinnerCreditos.setModel(new javax.swing.SpinnerNumberModel(1, 1, 7, 1));
-
-        comboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
-        comboBoxEstado.addActionListener(this::comboBoxEstadoActionPerformed);
 
         lblCreditos.setText("Créditos: ");
 
@@ -76,14 +70,22 @@ public class GUIAdicionarCurso extends javax.swing.JFrame {
 
         lblEstado.setText("Estado");
 
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(this::btnAgregarActionPerformed);
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(this::btnLimpiarActionPerformed);
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(this::btnSalirActionPerformed);
+
+        txtCreditos.setEditable(false);
+
+        txtDisponibilidad.setEditable(false);
+
+        txtCosto.setEditable(false);
+
+        txtEstado.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,33 +94,28 @@ public class GUIAdicionarCurso extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblCreditos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(spinnerCreditos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblDisponibilidad)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboBoxDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCodigo)
                             .addComponent(btnLimpiar)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(lblEstado))
                             .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCosto))
+                            .addComponent(lblDisponibilidad)
+                            .addComponent(lblCosto)
+                            .addComponent(lblEstado))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                                .addComponent(txtNombreCurso))
-                            .addComponent(comboBoxEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtCosto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(40, 40, 40))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDisponibilidad, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                            .addComponent(txtNombreCurso)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtCreditos)
+                            .addComponent(txtCosto, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                            .addComponent(txtEstado))
+                        .addGap(40, 40, 40))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,32 +131,29 @@ public class GUIAdicionarCurso extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDisponibilidad)
-                    .addComponent(comboBoxDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinnerCreditos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCreditos))
+                    .addComponent(txtDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCosto)
-                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(lblCreditos)
+                    .addComponent(txtCreditos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCosto, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblEstado)
-                        .addContainerGap())
+                        .addComponent(btnLimpiar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSalir)
+                        .addGap(17, 17, 17))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(comboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnLimpiar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSalir)
-                                .addGap(17, 17, 17))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAgregar)
-                                .addGap(32, 32, 32))))))
+                        .addComponent(btnBuscar)
+                        .addGap(32, 32, 32))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,71 +163,62 @@ public class GUIAdicionarCurso extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxEstadoActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_comboBoxEstadoActionPerformed
-
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoActionPerformed
 
-    private void comboBoxDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDisponibilidadActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxDisponibilidadActionPerformed
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
-        
         int codigo;
-        String nombre;
-        String strDisponibilidad;
-        boolean disponibilidad;
-        int creditos;
-        double costo;
-        String estado;
         
         try{
             
             codigo = Integer.parseInt(txtCodigo.getText().trim());
-            nombre = txtNombreCurso.getText().trim();
             
-            strDisponibilidad = comboBoxDisponibilidad.getSelectedItem().toString();
-            disponibilidad = strDisponibilidad.equalsIgnoreCase("Disponible");
+            Curso curso = ServicioCurso.buscarCursoPorCodigo(codigo);
             
-            creditos = (int) spinnerCreditos.getValue();
-            
-            costo = Double.parseDouble(txtCosto.getText().trim());
-            
-            estado = comboBoxEstado.getSelectedItem().toString();
-            
-            Curso curso = new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
-            
-            boolean agregado = ServicioCurso.agregarCurso(curso);
-            
-            if (agregado){
-                JOptionPane.showMessageDialog(this, "¡Curso agregado exitosamente!");
+            if (curso != null){
+                
+                txtNombreCurso.setText(curso.getNombre());
+                
+                if (curso.isDisponibilidad()){
+                    txtDisponibilidad.setText("Disponible");
+                } else{
+                    txtDisponibilidad.setText("No disponible");
+                }
+                
+                txtCreditos.setText(String.valueOf(curso.getCreditos()));
+                txtCosto.setText(String.valueOf(curso.getCosto()));
+                txtEstado.setText(curso.getEstado());
+                
+                
             } else{
-                JOptionPane.showMessageDialog(this, "Error. Código o nombre repetido (el nombre no distingue mayúsculas).");
+                JOptionPane.showMessageDialog(this, "¡Curso no encontrado!");
             }
+            
+            
+            
+            
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, "Error: " + e);
         }
-        
-    }//GEN-LAST:event_btnAgregarActionPerformed
+
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
@@ -245,23 +230,19 @@ public class GUIAdicionarCurso extends javax.swing.JFrame {
         
         txtCodigo.setText("");
         txtNombreCurso.setText("");
-        comboBoxDisponibilidad.setSelectedIndex(0);
-        spinnerCreditos.setValue(1);
+        txtDisponibilidad.setText("");
+        txtCreditos.setText("");
         txtCosto.setText("");
-        comboBoxEstado.setSelectedIndex(0);
+        txtEstado.setText("");
         
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> comboBoxDisponibilidad;
-    private javax.swing.JComboBox<String> comboBoxEstado;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCosto;
@@ -269,9 +250,11 @@ public class GUIAdicionarCurso extends javax.swing.JFrame {
     private javax.swing.JLabel lblDisponibilidad;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblNombreCurso;
-    private javax.swing.JSpinner spinnerCreditos;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtCreditos;
+    private javax.swing.JTextField txtDisponibilidad;
+    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtNombreCurso;
     // End of variables declaration//GEN-END:variables
 }
