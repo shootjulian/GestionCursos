@@ -39,7 +39,7 @@ public class GUIListarCurso extends javax.swing.JFrame {
         btnListar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
