@@ -104,7 +104,7 @@ public class ServicioCurso {
             return false;
         }
         
-        return CursoUtils.actulizarCursoPorCodigo(pCodigo, nuevoNombre, nuevoCosto);
+        return CursoUtils.actualizarCursoPorCodigo(pCodigo, nuevoNombre, nuevoCosto);
         
     }
     

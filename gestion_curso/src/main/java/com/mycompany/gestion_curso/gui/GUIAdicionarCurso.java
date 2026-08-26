@@ -6,21 +6,20 @@ package com.mycompany.gestion_curso.gui;
 
 import com.mycompany.gestion_curso.model.Curso;
 import com.mycompany.gestion_curso.servicios.ServicioCurso;
-import com.mycompany.gestion_curso.utils.CursoUtils;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author leidj
+ * @author Julim
  */
-public class Actualizar extends javax.swing.JFrame {
-
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Actualizar.class.getName());
+public class GUIAdicionarCurso extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIAdicionarCurso.class.getName());
 
     /**
-     * Creates new form Actualizar
+     * Creates new form GUIAdicionarCurso
      */
-    public Actualizar() {
+    public GUIAdicionarCurso() {
         initComponents();
         setLocationRelativeTo(this);
     }
@@ -34,7 +33,6 @@ public class Actualizar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtCodigo = new javax.swing.JTextField();
         lblCodigo = new javax.swing.JLabel();
@@ -48,13 +46,11 @@ public class Actualizar extends javax.swing.JFrame {
         lblCreditos = new javax.swing.JLabel();
         lblCosto = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
-        btnBuscarActualizar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
-        jLabel3.setText("jLabel3");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -80,8 +76,13 @@ public class Actualizar extends javax.swing.JFrame {
 
         lblEstado.setText("Estado");
 
-        btnBuscarActualizar.setText("Buscar");
-        btnBuscarActualizar.addActionListener(this::btnBuscarActualizarActionPerformed);
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(this::btnAgregarActionPerformed);
+
+        btnLimpiar.setText("Limpiar");
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(this::btnSalirActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -102,30 +103,29 @@ public class Actualizar extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCodigo)
+                            .addComponent(btnLimpiar)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(lblEstado))
+                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCosto))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNombreCurso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                                .addComponent(txtNombreCurso))
                             .addComponent(comboBoxEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCosto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBuscarActualizar)
-                                .addGap(23, 23, 23)))))
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtCosto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCodigo)
-                    .addComponent(btnBuscarActualizar))
+                    .addComponent(lblCodigo))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,45 +146,45 @@ public class Actualizar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblEstado)
-                        .addContainerGap(42, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(comboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnLimpiar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSalir)
+                                .addGap(17, 17, 17))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAgregar)
+                                .addGap(32, 32, 32))))))
         );
-
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(this::btnActualizarActionPerformed);
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(this::btnSalirActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnActualizar))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizar)
-                    .addComponent(btnSalir))
-                .addGap(25, 25, 25))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void comboBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxEstadoActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_comboBoxEstadoActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
@@ -194,14 +194,9 @@ public class Actualizar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxDisponibilidadActionPerformed
 
-    private void comboBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxEstadoActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-
-    }//GEN-LAST:event_comboBoxEstadoActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
-
+        
         int codigo;
         String nombre;
         String strDisponibilidad;
@@ -209,71 +204,51 @@ public class Actualizar extends javax.swing.JFrame {
         int creditos;
         double costo;
         String estado;
-
-        try {
-
+        
+        try{
+            
             codigo = Integer.parseInt(txtCodigo.getText().trim());
-
             nombre = txtNombreCurso.getText().trim();
-
+            
             strDisponibilidad = comboBoxDisponibilidad.getSelectedItem().toString();
             disponibilidad = strDisponibilidad.equalsIgnoreCase("Disponible");
-
-            creditos = (int) spinnerCreditos.getValue();
-
-            costo = Double.parseDouble(txtCosto.getText().trim());
-
-            estado = comboBoxEstado.getSelectedItem().toString();
-
             
-
-            boolean actualizado = CursoUtils.actualizarCursoPorCodigo(codigo, nombre, costo);
-
-            if (actualizado) {
-
-                JOptionPane.showMessageDialog(this,
-                        "¡Curso actualizado exitosamente!");
-
-            } else {
-
-                JOptionPane.showMessageDialog(this,
-                        "Error. El curso no existe.");
-
+            creditos = (int) spinnerCreditos.getValue();
+            
+            costo = Double.parseDouble(txtCosto.getText().trim());
+            
+            estado = comboBoxEstado.getSelectedItem().toString();
+            
+            Curso curso = new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
+            
+            boolean agregado = ServicioCurso.agregarCurso(curso);
+            
+            if (agregado){
+                JOptionPane.showMessageDialog(this, "¡Curso agregado exitosamente!");
+            } else{
+                JOptionPane.showMessageDialog(this, "Error. Verifique los datos o que el código no esté repetido.");
             }
-
-        } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Error: " + e.getMessage());
-
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Error: " + e);
         }
-
-
-    }//GEN-LAST:event_btnActualizarActionPerformed
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void btnBuscarActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActualizarActionPerformed
-        // TODO add your handling code here:
-        String codigoBuscar;
-         int codigo;
-        codigoBuscar=txtCodigo.getText().trim();
-        codigo=Integer.parseInt(codigoBuscar);
-        ServicioCurso.buscarCursoPorCodigo(codigo);
-        
-    }//GEN-LAST:event_btnBuscarActualizarActionPerformed
-
+    /**
+     * @param args the command line arguments
+     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnBuscarActualizar;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> comboBoxDisponibilidad;
     private javax.swing.JComboBox<String> comboBoxEstado;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCosto;

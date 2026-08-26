@@ -111,7 +111,7 @@ public class CursoUtils {
 
     }
     
-    public static boolean actulizarCursoPorCodigo(int pCodigo, String nuevoNombre, double nuevoCosto){
+    public static boolean actualizarCursoPorCodigo(int pCodigo, String nuevoNombre, double nuevoCosto){
         
         int codigo;
         String nombre;
@@ -141,7 +141,7 @@ public class CursoUtils {
                     estado = StringUtils.formatearCadena(estado, 8);
                     
                     // Regresamos al inicio del registro
-                    posicion = archivo.getFilePointer();
+                    archivo.seek(posicion);
                     
                     // Sobrescribimos TODO el curso
                     archivo.writeInt(codigo);
@@ -220,6 +220,7 @@ public class CursoUtils {
         
         return false;
     }
+    }
     
     
-}
+
