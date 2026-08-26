@@ -44,6 +44,13 @@ public class ServicioCurso {
             return false;
         }
 
+        // Mismo nombre con distinta capitalización = duplicado
+        // Ej: "mAtematicas" y "MatematiCas"
+        Curso mismoNombre = CursoUtils.buscarCursoPorNombreIgnorandoMayusculas(curso.getNombre());
+        if (mismoNombre != null) {
+            return false;
+        }
+
         CursoUtils.agregarCurso(curso);
 
         return true;
@@ -103,8 +110,13 @@ public class ServicioCurso {
         if (cursoExistente == null){
             return false;
         }
+
+        Curso mismoNombre = CursoUtils.buscarCursoPorNombreIgnorandoMayusculas(nuevoNombre);
+        if (mismoNombre != null && mismoNombre.getCodigo() != pCodigo) {
+            return false;
+        }
         
-        return CursoUtils.actulizarCursoPorCodigo(pCodigo, nuevoNombre, nuevoCosto);
+        return CursoUtils.actualizarCursoPorCodigo(pCodigo, nuevoNombre, nuevoCosto);
         
     }
     

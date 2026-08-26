@@ -22,8 +22,8 @@ public class CursoUtils {
 
             archivo.seek(archivo.length());
             
-            String nombre = StringUtils.formatearCadena(curso.getNombre(), 31);
-            String estado = StringUtils.formatearCadena(curso.getEstado(), 8);
+            String nombre = StringUtils.formatearCadenaPorBytes(curso.getNombre(), 31);
+            String estado = StringUtils.formatearCadenaPorBytes(curso.getEstado(), 8);
 
             archivo.writeInt(curso.getCodigo());
             archivo.writeUTF(nombre);
@@ -110,8 +110,42 @@ public class CursoUtils {
         return null;
 
     }
+
+    /**
+     * Busca un curso ACTIVO cuyo nombre sea igual ignorando mayúsculas.
+     */
+    public static Curso buscarCursoPorNombreIgnorandoMayusculas(String pNombre) {
+        if (pNombre == null || pNombre.trim().isEmpty()) {
+            return null;
+        }
+
+        try {
+            RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
+
+            while (archivo.getFilePointer() < archivo.length()) {
+                int codigo = archivo.readInt();
+                String nombre = archivo.readUTF().trim();
+                boolean disponibilidad = archivo.readBoolean();
+                int creditos = archivo.readInt();
+                double costo = archivo.readDouble();
+                String estado = archivo.readUTF().trim();
+
+                if (StringUtils.nombresIguales(pNombre, nombre)
+                        && "ACTIVO".equalsIgnoreCase(estado)) {
+                    archivo.close();
+                    return new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
+                }
+            }
+
+            archivo.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
+        return null;
+    }
     
-    public static boolean actulizarCursoPorCodigo(int pCodigo, String nuevoNombre, double nuevoCosto){
+    public static boolean actualizarCursoPorCodigo(int pCodigo, String nuevoNombre, double nuevoCosto){
         
         int codigo;
         String nombre;
@@ -138,8 +172,8 @@ public class CursoUtils {
                 
                 if (pCodigo == codigo){
                     
-                    nuevoNombre = StringUtils.formatearCadena(nuevoNombre, 31);
-                    estado = StringUtils.formatearCadena(estado, 8);
+                    nuevoNombre = StringUtils.formatearCadenaPorBytes(nuevoNombre, 31);
+                    estado = StringUtils.formatearCadenaPorBytes(estado, 8);
                     
                     // Regresamos al inicio del registro
                     archivo.seek(posicion);
@@ -196,8 +230,8 @@ public class CursoUtils {
                     // Cambio de estado = eliminación lógica
                     estado = "INACTIVO";
                     
-                    nombre = StringUtils.formatearCadena(nombre, 31);
-                    estado = StringUtils.formatearCadena(estado, 8);
+                    nombre = StringUtils.formatearCadenaPorBytes(nombre, 31);
+                    estado = StringUtils.formatearCadenaPorBytes(estado, 8);
                     
                     // Regresamos al inicio del registro
                     archivo.seek(posicion);
@@ -221,6 +255,7 @@ public class CursoUtils {
         
         return false;
     }
+    }
     
     
-}
+

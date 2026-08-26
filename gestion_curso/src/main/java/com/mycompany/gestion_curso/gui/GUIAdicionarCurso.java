@@ -227,7 +227,7 @@ public class GUIAdicionarCurso extends javax.swing.JFrame {
             if (agregado){
                 JOptionPane.showMessageDialog(this, "¡Curso agregado exitosamente!");
             } else{
-                JOptionPane.showMessageDialog(this, "Error. Verifique los datos o que el código no esté repetido.");
+                JOptionPane.showMessageDialog(this, "Error. Código o nombre repetido (el nombre no distingue mayúsculas).");
             }
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, "Error: " + e);
