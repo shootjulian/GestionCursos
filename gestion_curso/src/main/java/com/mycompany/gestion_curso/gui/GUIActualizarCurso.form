@@ -24,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
@@ -33,9 +33,9 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace pref="7" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,18 +56,50 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnLimpiar" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnSalir" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                      <Component id="lblCosto" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblNombreCurso" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtCodigo" alignment="0" pref="266" max="32767" attributes="0"/>
-                      <Component id="txtNombreCurso" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnActualizar" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtCosto" alignment="0" pref="266" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnLimpiar" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSalir" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
+                              <Component id="lblCosto" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblNombreCurso" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtNuevoNombre" alignment="0" pref="266" max="32767" attributes="0"/>
+                                      <Component id="btnActualizar" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtNuevoCosto" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <Component id="txtCodigo" min="-2" pref="232" max="-2" attributes="0"/>
+                                  <EmptySpace pref="45" max="32767" attributes="0"/>
+                                  <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="lblDisponibilidad" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblNombreActual" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="lblCreditos" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                              <Component id="lblCostoActual" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtEstado" pref="242" max="32767" attributes="0"/>
+                              <Component id="txtCostoActual" max="32767" attributes="0"/>
+                              <Component id="txtCreditos" max="32767" attributes="0"/>
+                              <Component id="txtNombreActual" max="32767" attributes="0"/>
+                              <Component id="txtDisponibilidad" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
               </Group>
@@ -80,18 +112,44 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblNombreActual" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNombreActual" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblDisponibilidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDisponibilidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblCreditos" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCreditos" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtNombreCurso" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCostoActual" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCostoActual" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblNombreCurso" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNuevoNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="txtCosto" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblCosto" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblCosto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNuevoCosto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="36" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="btnLimpiar" min="-2" max="-2" attributes="0"/>
@@ -119,7 +177,7 @@
             <Property name="text" type="java.lang.String" value="C&#xf3;digo: "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNombreCurso">
+        <Component class="javax.swing.JTextField" name="txtNuevoNombre">
         </Component>
         <Component class="javax.swing.JLabel" name="lblNombreCurso">
           <Properties>
@@ -155,7 +213,68 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCosto">
+        <Component class="javax.swing.JTextField" name="txtNuevoCosto">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNuevoCostoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnBuscar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Buscar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblNombreActual">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nombre actual: "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblDisponibilidad">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Disponibilidad:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblCreditos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cr&#xe9;ditos:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblCostoActual">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Costo actual:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblEstado">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Estado: "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtNombreActual">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtDisponibilidad">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtCreditos">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtCostoActual">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtEstado">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

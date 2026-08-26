@@ -4,6 +4,7 @@
  */
 package com.mycompany.gestion_curso.gui;
 
+import com.mycompany.gestion_curso.model.Curso;
 import com.mycompany.gestion_curso.servicios.ServicioCurso;
 import com.mycompany.gestion_curso.utils.CursoUtils;
 import javax.swing.JOptionPane;
@@ -22,6 +23,7 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
     public GUIActualizarCurso() {
         initComponents();
         setLocationRelativeTo(this);
+        btnActualizar.setEnabled(false);
     }
 
     /**
@@ -36,13 +38,24 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txtCodigo = new javax.swing.JTextField();
         lblCodigo = new javax.swing.JLabel();
-        txtNombreCurso = new javax.swing.JTextField();
+        txtNuevoNombre = new javax.swing.JTextField();
         lblNombreCurso = new javax.swing.JLabel();
         lblCosto = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        txtCosto = new javax.swing.JTextField();
+        txtNuevoCosto = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        lblNombreActual = new javax.swing.JLabel();
+        lblDisponibilidad = new javax.swing.JLabel();
+        lblCreditos = new javax.swing.JLabel();
+        lblCostoActual = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
+        txtNombreActual = new javax.swing.JTextField();
+        txtDisponibilidad = new javax.swing.JTextField();
+        txtCreditos = new javax.swing.JTextField();
+        txtCostoActual = new javax.swing.JTextField();
+        txtEstado = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +78,31 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
         btnSalir.setText("Salir");
         btnSalir.addActionListener(this::btnSalirActionPerformed);
 
+        txtNuevoCosto.addActionListener(this::txtNuevoCostoActionPerformed);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
+
+        lblNombreActual.setText("Nombre actual: ");
+
+        lblDisponibilidad.setText("Disponibilidad:");
+
+        lblCreditos.setText("Créditos:");
+
+        lblCostoActual.setText("Costo actual:");
+
+        lblEstado.setText("Estado: ");
+
+        txtNombreActual.setEditable(false);
+
+        txtDisponibilidad.setEditable(false);
+
+        txtCreditos.setEditable(false);
+
+        txtCostoActual.setEditable(false);
+
+        txtEstado.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -72,17 +110,40 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCodigo)
-                    .addComponent(btnLimpiar)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCosto)
-                    .addComponent(lblNombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                    .addComponent(txtNombreCurso)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtCosto, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCodigo)
+                            .addComponent(btnLimpiar)
+                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCosto)
+                            .addComponent(lblNombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNuevoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                                    .addComponent(btnActualizar, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtNuevoCosto)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                                .addComponent(btnBuscar))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblDisponibilidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNombreActual, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblCreditos, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCostoActual)
+                            .addComponent(lblEstado))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                            .addComponent(txtCostoActual)
+                            .addComponent(txtCreditos)
+                            .addComponent(txtNombreActual)
+                            .addComponent(txtDisponibilidad))))
                 .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
@@ -91,16 +152,37 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCodigo))
+                    .addComponent(lblCodigo)
+                    .addComponent(btnBuscar))
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreActual)
+                    .addComponent(txtNombreActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNombreCurso))
+                    .addComponent(lblDisponibilidad)
+                    .addComponent(txtDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCosto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCreditos)
+                    .addComponent(txtCreditos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCostoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCostoActual))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreCurso)
+                    .addComponent(txtNuevoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCosto)
+                    .addComponent(txtNuevoCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnLimpiar)
@@ -117,16 +199,16 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(25, 25, 25)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,16 +228,22 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
         try{
             
             codigo = Integer.parseInt(txtCodigo.getText().trim());
-            nuevoNombre = txtNombreCurso.getText().trim();
-            nuevoCosto = Double.parseDouble(txtCosto.getText().trim());
+            nuevoNombre = txtNuevoNombre.getText().trim();
+            nuevoCosto = Double.parseDouble(txtNuevoCosto.getText().trim());
             
             boolean actualizado = ServicioCurso.actulizarCursoPorCodigo(codigo, nuevoNombre, nuevoCosto);
             
             if (actualizado){
                 JOptionPane.showMessageDialog(this, "¡Curso actualizado!");
+                
+                //Cambiar los text fields con los nuevos atributos
+                txtNombreActual.setText(nuevoNombre);
+                txtCostoActual.setText(String.valueOf(nuevoCosto));
             } else{
                 JOptionPane.showMessageDialog(this, "Error. No fue posible actualizar el curso, verifique sus datos");
             }
+            
+            
             
             
             
@@ -169,8 +257,17 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         txtCodigo.setText("");
-        txtNombreCurso.setText("");
-        txtCosto.setText("");
+
+        txtNombreActual.setText("");
+        txtDisponibilidad.setText("");
+        txtCreditos.setText("");
+        txtCostoActual.setText("");
+        txtEstado.setText("");
+
+        txtNuevoNombre.setText("");
+        txtNuevoCosto.setText("");
+        
+        btnActualizar.setEnabled(false);
 
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
@@ -179,20 +276,72 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void txtNuevoCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevoCostoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevoCostoActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        
+        int codigo;
+        
+        try{
+            codigo = Integer.parseInt(txtCodigo.getText().trim());
+            
+            Curso curso = ServicioCurso.buscarCursoPorCodigo(codigo);
+            
+            if (curso!=null){
+                
+                txtNombreActual.setText(curso.getNombre());
+                
+                if (curso.isDisponibilidad()){
+                    txtDisponibilidad.setText("Disponibe");
+                } else{
+                    txtDisponibilidad.setText("No disponible");
+                }
+                
+                txtCreditos.setText(String.valueOf(curso.getCreditos()));
+                
+                txtCostoActual.setText(String.valueOf(curso.getCosto()));
+                
+                txtEstado.setText(curso.getEstado().toUpperCase());
+                
+                btnActualizar.setEnabled(true);
+            } else{
+                JOptionPane.showMessageDialog(this, "¡Curso no encontrado!");
+            }
+            
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Error: " + e);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCosto;
+    private javax.swing.JLabel lblCostoActual;
+    private javax.swing.JLabel lblCreditos;
+    private javax.swing.JLabel lblDisponibilidad;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblNombreActual;
     private javax.swing.JLabel lblNombreCurso;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtCosto;
-    private javax.swing.JTextField txtNombreCurso;
+    private javax.swing.JTextField txtCostoActual;
+    private javax.swing.JTextField txtCreditos;
+    private javax.swing.JTextField txtDisponibilidad;
+    private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtNombreActual;
+    private javax.swing.JTextField txtNuevoCosto;
+    private javax.swing.JTextField txtNuevoNombre;
     // End of variables declaration//GEN-END:variables
 }

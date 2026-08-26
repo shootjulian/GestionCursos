@@ -119,6 +119,7 @@ public class CursoUtils {
         int creditos;
         double costo;
         String estado;
+        
         Curso curso;
         
         try{
@@ -133,7 +134,7 @@ public class CursoUtils {
                 disponibilidad = archivo.readBoolean();
                 creditos = archivo.readInt();
                 costo = archivo.readDouble();
-                estado = archivo.readUTF().trim();
+                estado = archivo.readUTF().trim(); // 60
                 
                 if (pCodigo == codigo){
                     
