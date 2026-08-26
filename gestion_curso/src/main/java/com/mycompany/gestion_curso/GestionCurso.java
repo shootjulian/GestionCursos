@@ -4,6 +4,9 @@
 
 package com.mycompany.gestion_curso;
 
+import com.mycompany.gestion_curso.gui.GUIPrincipal;
+import com.mycompany.gestion_curso.utils.StringUtils;
+
 /**
  *
  * @author Julim
@@ -15,6 +18,7 @@ package com.mycompany.gestion_curso;
 public class GestionCurso {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        GUIPrincipal gui = new GUIPrincipal();
+        gui.setVisible(true);
     }
 }
