@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Parcial práctico — GestionCursos</title>
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --ink: #1c1915;
+      --muted: #5c564c;
+      --card: #fffdf8;
+      --line: #ddd4c4;
+      --accent: #1f4d3a;
+      --accent-2: #c45c26;
+      --ok: #1f4d3a;
+      --bad: #8b2e1f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    header {
+      background: var(--accent);
+      color: #f4f1ea;
+      padding: 28px 20px 24px;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 1.55rem;
+      font-weight: 700;
+    }
+    header p { margin: 0; max-width: 42rem; opacity: .92; font-size: .98rem; }
+    main { max-width: 760px; margin: 0 auto; padding: 20px 16px 80px; }
+    .meta {
+      display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0 8px;
+    }
+    .chip {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 6px 10px;
+      font-size: .82rem;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    .note {
+      background: #efe6d4;
+      border-left: 4px solid var(--accent-2);
+      padding: 12px 14px;
+      margin: 16px 0 28px;
+      font-size: .95rem;
+    }
+    .q {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 16px 16px 14px;
+      margin: 0 0 14px;
+    }
+    .q h2 {
+      font-size: 1.05rem;
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+    .tag {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: .72rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    label.opt {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 9px 10px;
+      margin: 6px 0;
+      cursor: pointer;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: .92rem;
+      background: #fff;
+    }
+    label.opt:hover { border-color: var(--accent); }
+    label.opt input { margin-right: 8px; }
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--line);
+      font-size: 1rem;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    label.ok { border-color: var(--ok); background: #e7f0ea; }
+    label.bad { border-color: var(--bad); background: #f7e8e4; }
+    .hint {
+      display: none;
+      margin-top: 10px;
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .bar {
+      position: sticky;
+      bottom: 0;
+      background: #fffdf8ee;
+      border-top: 1px solid var(--line);
+      padding: 12px 16px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    button {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      border: 0;
+      padding: 11px 18px;
+      font-size: .95rem;
+      cursor: pointer;
+    }
+    .go { background: var(--accent); color: #f4f1ea; }
+    .ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+    #resultado {
+      display: none;
+      background: var(--card);
+      border: 2px solid var(--accent);
+      padding: 16px;
+      margin: 18px 0;
+    }
+    #resultado h2 { margin: 0 0 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Parcial práctico — GestionCursos</h1>
+    <p>20 preguntas. CRUD con RandomAccessFile y manejo de bytes (UTF-8, writeUTF, codePoint). Marca, califica y comparte este enlace con el grupo.</p>
+  </header>
+  <main>
+    <div class="meta">
+      <span class="chip">20 ítems · 100 pts</span>
+      <span class="chip">Aprobación sugerida: 60</span>
+      <span class="chip">Proyecto piloto: GestionCursos</span>
+    </div>
+    <p class="note">Práctica de estudio, no es el examen oficial del docente. Las pistas salen al calificar.</p>
+    <form id="examen"></form>
+    <div id="resultado"></div>
+  </main>
+  <div class="bar">
+    <button type="button" class="go" id="btnCalificar">Calificar</button>
+    <button type="button" class="ghost" id="btnLimpiar">Limpiar</button>
+  </div>
+  <script>
+    const Q = [
+      {id:"q1",s:"Persistencia",p:5,t:"En GestionCursos, los cursos se guardan con RandomAccessFile. ¿Por qué no basta un FileWriter que escribe texto línea por línea?",k:"mc",o:["Porque FileWriter no existe en Java","Porque con acceso aleatorio se puede ir a un registro (seek) y actualizarlo o marcarlo INACTIVO sin reescribir todo el archivo","Porque RandomAccessFile ocupa menos RAM que un String","Porque el docente pidió un .txt y FileWriter no crea .txt"],a:"Porque con acceso aleatorio se puede ir a un registro (seek) y actualizarlo o marcarlo INACTIVO sin reescribir todo el archivo",h:"Actualizar y eliminar lógica necesitan volver al inicio del registro."},
+      {id:"q2",s:"Persistencia",p:5,t:"Orden exacto en que CursoUtils escribe un curso en data/curso.txt:",k:"mc",o:["nombre, codigo, costo, creditos, estado, disponibilidad","codigo (int), nombre (UTF 31), disponibilidad (boolean), creditos (int), costo (double), estado (UTF 8)","codigo, estado, nombre, costo, creditos, disponibilidad","todo en una sola línea de texto separada por comas"],a:"codigo (int), nombre (UTF 31), disponibilidad (boolean), creditos (int), costo (double), estado (UTF 8)",h:"Mismo orden al leer: readInt, readUTF, readBoolean, readInt, readDouble, readUTF."},
+      {id:"q3",s:"Bytes",p:5,t:"Tamaño fijo de cada tipo al escribir (sin contar writeUTF):",k:"mc",o:["int = 2, boolean = 1, double = 4","int = 4, boolean = 1, double = 8","int = 8, boolean = 8, double = 8","int = 4, boolean = 4, double = 4"],a:"int = 4, boolean = 1, double = 8",h:"Java: writeInt 4 bytes, writeBoolean 1 byte, writeDouble 8 bytes."},
+      {id:"q4",s:"Bytes",p:6,t:"writeUTF(nombre) con el nombre ya formateado a 31 bytes. ¿Cuántos bytes ocupa realmente en el archivo?",k:"mc",o:["31, porque el nombre mide 31","33: 2 bytes de longitud + 31 del texto","32: 1 byte de longitud + 31 del texto","62, el doble, porque UTF usa 2 bytes por letra"],a:"33: 2 bytes de longitud + 31 del texto",h:"writeUTF siempre antepone 2 bytes con la longitud del string."},
+      {id:"q5",s:"Bytes",p:8,t:"Curso.TAMANO_REGISTRO = 60. Completa: 4 (codigo) + ? (nombre UTF) + 1 (disp.) + 4 (creditos) + 8 (costo) + ? (estado UTF) = 60. ¿Cuáles son los dos faltantes?",k:"mc",o:["31 y 8","33 y 10","31 y 10","33 y 8"],a:"33 y 10",h:"Nombre: 2+31=33. Estado: 2+8=10. 4+33+1+4+8+10=60."},
+      {id:"q6",s:"Bytes",p:6,t:"¿Cuántos bytes UTF-8 ocupan a, ñ, á y un espacio?",k:"mc",o:["Todos 1 byte, porque son un solo carácter","a=1, espacio=1, ñ=2, á=2","a=1, espacio=1, ñ=1, á=1","a=2, espacio=2, ñ=4, á=4"],a:"a=1, espacio=1, ñ=2, á=2",h:"ASCII = 1 byte. Tildes y ñ en UTF-8 = 2 bytes."},
+      {id:"q7",s:"Bytes",p:6,t:"Si formateas \"Matemáticas\" a 31 CARACTERES (formatearCadena) y luego haces writeUTF, ¿qué riesgo hay?",k:"mc",o:["Ninguno: 11 letras caben en 31","El registro queda más grande que 60 bytes (á vale 2) y al actualizar/eliminar se descuadran los cursos siguientes","Java rechaza la tilde y no guarda el curso","Solo se pierde la tilde, el tamaño del archivo no cambia"],a:"El registro queda más grande que 60 bytes (á vale 2) y al actualizar/eliminar se descuadran los cursos siguientes",h:"11 caracteres pero 12 bytes de texto."},
+      {id:"q8",s:"Bytes",p:5,t:"¿Qué es un codePoint en StringUtils.formatearCadenaPorBytes?",k:"mc",o:["La posición del cursor en el archivo (getFilePointer)","El número Unicode de una letra completa, para no cortar tildes/emojis a la mitad al recortar por bytes","El código del curso (int)","La cantidad de espacios que faltan para llegar a 31"],a:"El número Unicode de una letra completa, para no cortar tildes/emojis a la mitad al recortar por bytes",h:"codePointAt + charCount evitan partir un carácter."},
+      {id:"q9",s:"CRUD",p:5,t:"¿En qué operaciones CursoUtils llama a formatearCadenaPorBytes?",k:"mc",o:["Solo al listar y al buscar","Al agregar, al actualizar y al eliminar (antes de escribir)","Solo en el resumen (sumar costos)","En las 6 ventanas de la GUI"],a:"Al agregar, al actualizar y al eliminar (antes de escribir)",h:"Al leer no se formatea: se hace readUTF y trim."},
+      {id:"q10",s:"CRUD",p:5,t:"La eliminación en GestionCursos es lógica. Eso significa:",k:"mc",o:["Se borra el archivo curso.txt","Se acorta el archivo con setLength","No se quita el registro: se sobrescribe estado = INACTIVO (8 bytes) y se reescribe el registro completo","Se pone costo = 0 y se deja ACTIVO"],a:"No se quita el registro: se sobrescribe estado = INACTIVO (8 bytes) y se reescribe el registro completo",h:"Por eso hay que volver a formatear nombre y estado a tamaño fijo."},
+      {id:"q11",s:"CRUD",p:5,t:"Al actualizar, CursoUtils guarda long posicion = getFilePointer() ANTES de leer. ¿Para qué?",k:"mc",o:["Para contar cuántos cursos hay","Para volver con seek(posicion) al inicio de ESE registro y sobrescribirlo entero","Para saltarse el nombre UTF","Para copiar el archivo a otro .txt"],a:"Para volver con seek(posicion) al inicio de ESE registro y sobrescribirlo entero",h:"Si escribes sin seek, escribes al final o a mitad del siguiente campo."},
+      {id:"q12",s:"Validaciones",p:5,t:"ServicioCurso.agregarCurso: \"mAtematicas\" ya está ACTIVO. ¿Se puede guardar \"MatematiCas\"?",k:"mc",o:["Sí, porque las letras mayúsculas son otro nombre","No: nombresIguales ignora mayúsculas y solo compara contra cursos ACTIVO","Sí, si el código es distinto","No, pero solo si también coinciden los créditos"],a:"No: nombresIguales ignora mayúsculas y solo compara contra cursos ACTIVO",h:"buscarCursoPorNombreIgnorandoMayusculas exige estado ACTIVO."},
+      {id:"q13",s:"Validaciones",p:4,t:"¿Cuál de estos agregarCurso debe fallar (return false)?",k:"mc",o:["codigo=10, nombre=Fisica, creditos=3, costo=0","codigo=0, nombre=Fisica, creditos=3, costo=100","codigo=10, nombre=Fisica, creditos=1, costo=50","codigo=10, nombre=Fisica, creditos=7, costo=0"],a:"codigo=0, nombre=Fisica, creditos=3, costo=100",h:"codigo <= 0 o creditos <= 0 o costo < 0 o nombre vacío o duplicado."},
+      {id:"q14",s:"Validaciones",p:4,t:"Intentas eliminar un curso que ya está INACTIVO. ¿Qué hace el servicio?",k:"mc",o:["Lo vuelve a marcar INACTIVO (éxito)","Lo borra físicamente la segunda vez","return false: no se elimina dos veces","Cambia el nombre a vacio"],a:"return false: no se elimina dos veces",h:"eliminarCursoPorCodigo rechaza si estado ya es INACTIVO."},
+      {id:"q15",s:"CRUD",p:5,t:"GUIResumenCurso al pulsar Calcular muestra:",k:"mc",o:["Solo cursos ACTIVO y el promedio de créditos","contarCursos() (todos los registros del archivo, también INACTIVOS) y sumarCostos()","Solo la suma de costos de cursos disponibles","El tamaño en bytes de curso.txt"],a:"contarCursos() (todos los registros del archivo, también INACTIVOS) y sumarCostos()",h:"listar/contar leen todo lo que hay en el archivo, sin filtrar estado."},
+      {id:"q16",s:"Arquitectura",p:4,t:"¿Qué capa valida y qué capa escribe el archivo?",k:"mc",o:["GUI escribe el archivo; CursoUtils valida","ServicioCurso valida (codigo, duplicados, INACTIVO); CursoUtils hace RandomAccessFile","El modelo Curso abre el .txt","StringUtils guarda el curso"],a:"ServicioCurso valida (codigo, duplicados, INACTIVO); CursoUtils hace RandomAccessFile",h:"GUI → ServicioCurso → CursoUtils → curso.txt"},
+      {id:"q17",s:"Bytes",p:6,t:"formatearCadenaPorBytes(\"año\", 2). ¿Qué queda? (ñ pesa 2; si no cabe, no se parte)",k:"mc",o:["\"añ\" (corta la ñ a la mitad)","\"año\" (ignora el límite)","\"a \" (la a cabe; la ñ no; se rellena con espacio hasta 2 bytes)","\"ñ\" (se queda con la letra más pesada)"],a:"\"a \" (la a cabe; la ñ no; se rellena con espacio hasta 2 bytes)",h:"Maleta de 2 kg: a=1 entra; ñ=2 ya no cabe; se completa con espacio."},
+      {id:"q18",s:"Bytes",p:6,t:"Al leer, se hace archivo.readUTF().trim() en nombre y estado. ¿Por qué trim?",k:"mc",o:["Porque writeUTF mete un salto de línea","Porque al guardar se rellenan con espacios hasta 31 y 8 bytes; trim quita ese padding para mostrar/comparar","Porque RandomAccessFile siempre deja basura al final","No hace falta; trim no cambia nada"],a:"Porque al guardar se rellenan con espacios hasta 31 y 8 bytes; trim quita ese padding para mostrar/comparar",h:"El tamaño fijo usa espacios. El usuario no debe ver esos espacios."},
+      {id:"q19",s:"Bytes",p:5,t:"Si el registro 0 empieza en byte 0 y cada registro mide 60, ¿en qué byte empieza el 3er curso (índice 2)?",k:"num",a:"120",h:"posición = indice * TAMANO_REGISTRO → 2 * 60 = 120."},
+      {id:"q20",s:"Bytes",p:5,t:"\"Programación\" tiene ó (2 bytes). Caracteres = 12. ¿Cuántos bytes UTF-8 tiene el texto (sin el prefijo writeUTF)?",k:"num",a:"13",h:"11 letras de 1 byte + ó de 2 = 13."}
+    ];
+
+    const form = document.getElementById("examen");
+    Q.forEach((q, i) => {
+      const box = document.createElement("article");
+      box.className = "q";
+      box.id = q.id;
+      let inner = `<div class="tag">${q.s} · ${q.p} pts</div><h2>${i + 1}. ${q.t}</h2>`;
+      if (q.k === "mc") {
+        inner += q.o.map((opt, j) =>
+          `<label class="opt"><input type="radio" name="${q.id}" value="${j}"> ${opt}</label>`
+        ).join("");
+      } else {
+        inner += `<input type="text" name="${q.id}" inputmode="numeric" placeholder="Escribe solo el número">`;
+      }
+      inner += `<div class="hint"></div>`;
+      box.innerHTML = inner;
+      form.appendChild(box);
+    });
+
+    function valor(q) {
+      if (q.k === "mc") {
+        const el = form.querySelector(`input[name="${q.id}"]:checked`);
+        return el ? q.o[Number(el.value)] : "";
+      }
+      const el = form.querySelector(`input[name="${q.id}"]`);
+      return (el && el.value ? el.value : "").trim();
+    }
+
+    document.getElementById("btnCalificar").onclick = () => {
+      let pts = 0, ok = 0, blank = 0;
+      Q.forEach((q) => {
+        const box = document.getElementById(q.id);
+        box.querySelectorAll("label.opt").forEach(l => l.classList.remove("ok", "bad"));
+        const given = valor(q);
+        const hint = box.querySelector(".hint");
+        hint.style.display = "block";
+        if (!given) {
+          blank++;
+          hint.textContent = "En blanco. " + q.h + " Respuesta: " + q.a;
+          return;
+        }
+        const good = given === q.a;
+        if (good) { pts += q.p; ok++; }
+        hint.textContent = (good ? "Correcta. " : "Incorrecta. Respuesta: " + q.a + ". ") + q.h;
+        if (q.k === "mc") {
+          box.querySelectorAll("label.opt").forEach((lab) => {
+            const idx = lab.querySelector("input").value;
+            if (q.o[Number(idx)] === q.a) lab.classList.add("ok");
+            else if (lab.querySelector("input").checked && !good) lab.classList.add("bad");
+          });
+        }
+      });
+      const total = Q.reduce((s, q) => s + q.p, 0);
+      const res = document.getElementById("resultado");
+      res.style.display = "block";
+      res.innerHTML = `<h2>Resultado: ${pts} / ${total}</h2>
+        <p>${ok} aciertos · ${blank} en blanco. Aprobación sugerida: 60.</p>
+        <p>Fórmula del registro: 4 + (2+31) + 1 + 4 + 8 + (2+8) = 60 bytes.</p>`;
+      res.scrollIntoView({ behavior: "smooth" });
+    };
+
+    document.getElementById("btnLimpiar").onclick = () => {
+      form.reset();
+      document.querySelectorAll("label.opt").forEach(l => l.classList.remove("ok", "bad"));
+      document.querySelectorAll(".hint").forEach(h => { h.style.display = "none"; h.textContent = ""; });
+      document.getElementById("resultado").style.display = "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  </script>
+</body>
+</html>
