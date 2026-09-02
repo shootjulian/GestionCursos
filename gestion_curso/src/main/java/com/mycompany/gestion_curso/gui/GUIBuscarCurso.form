@@ -75,7 +75,10 @@
                               <Component id="txtDisponibilidad" pref="266" max="32767" attributes="0"/>
                               <Component id="txtCodigo" alignment="0" pref="266" max="32767" attributes="0"/>
                               <Component id="txtNombreCurso" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnBuscar" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                  <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="txtCreditos" max="32767" attributes="0"/>
                               <Component id="txtCosto" pref="266" max="32767" attributes="0"/>
                               <Component id="txtEstado" alignment="0" max="32767" attributes="0"/>

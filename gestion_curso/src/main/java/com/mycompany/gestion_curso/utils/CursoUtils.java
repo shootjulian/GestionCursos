@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.gestion_curso.utils;
 
 import com.mycompany.gestion_curso.model.Curso;
@@ -10,21 +6,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Julim
+ * Clase de utilidad para gestionar la lectura y escritura de cursos 
+ * directamente en el archivo plano usando RandomAccessFile.
  */
 public class CursoUtils {
 
+    // Guarda un nuevo curso al final del archivo
     public static void agregarCurso(Curso curso) {
 
         try {
+            // Abrimos el archivo en modo lectura y escritura ("rw")
             RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
 
+            // Movemos el puntero al final del archivo para agregar el registro sin sobrescribir nada
             archivo.seek(archivo.length());
             
-            String nombre = StringUtils.formatearCadena(curso.getNombre(), 31);
-            String estado = StringUtils.formatearCadena(curso.getEstado(), 8);
+            // Ajustamos el tamaño del nombre y del estado a un número fijo de bytes
+            String nombre = StringUtils.formatearCadenaPorBytes(curso.getNombre(), 31);
+            String estado = StringUtils.formatearCadenaPorBytes(curso.getEstado(), 8);
 
+            // Escribimos cada atributo del curso en el orden correspondiente
             archivo.writeInt(curso.getCodigo());
             archivo.writeUTF(nombre);
             archivo.writeBoolean(curso.isDisponibilidad());
@@ -38,6 +39,7 @@ public class CursoUtils {
         }
     }
     
+    // Lee todos los registros guardados en el archivo y los devuelve en una lista
     public static List<Curso> leerCursos(){
         List<Curso> cursos = new ArrayList();
         
@@ -52,17 +54,19 @@ public class CursoUtils {
         try{
             RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
             
+            // Mientras el puntero no haya llegado al final del archivo, seguimos leyendo registros
             while (archivo.getFilePointer() < archivo.length()){
                 
                 codigo = archivo.readInt();
+                // .trim() elimina los espacios sobrantes agregados al formatear la cadena
                 nombre = archivo.readUTF().trim();
                 disponibilidad = archivo.readBoolean();
                 creditos = archivo.readInt();
                 costo = archivo.readDouble();
                 estado = archivo.readUTF().trim();
                 
+                // Creamos el objeto con los datos leídos y lo agregamos a la lista
                 curso = new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
-                
                 cursos.add(curso);
             }
             
@@ -75,9 +79,8 @@ public class CursoUtils {
         return cursos;
     }
 
+    // Busca un curso por su código dentro del archivo
     public static Curso buscarCursoPorCodigo(int pCodigo) {
-        //strcodigo, String nombre, strdisponibilidad, strcreditos, strcosto, String estado;
-        
         int codigo;
         String nombre;
         boolean disponibilidad;
@@ -88,6 +91,8 @@ public class CursoUtils {
         
         try {
             RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
+            
+            // Recorremos el archivo registro por registro
             while (archivo.getFilePointer() < archivo.length()) {
                 codigo = archivo.readInt();
                 nombre = archivo.readUTF().trim();
@@ -95,12 +100,13 @@ public class CursoUtils {
                 creditos = archivo.readInt();
                 costo = archivo.readDouble();
                 estado = archivo.readUTF().trim();
+                
+                // Si encontramos el código buscado, creamos el curso y lo retornamos de inmediato
                 if (pCodigo == codigo) {
                     curso = new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
                     archivo.close();
                     return curso;
                 }
-
             }
             archivo.close();
         } catch (Exception e) {
@@ -108,11 +114,42 @@ public class CursoUtils {
         }
 
         return null;
+    }
 
+    // Busca un curso ACTIVO cuyo nombre sea igual, ignorando mayúsculas y minúsculas
+    public static Curso buscarCursoPorNombreIgnorandoMayusculas(String pNombre) {
+        if (pNombre == null || pNombre.trim().isEmpty()) {
+            return null;
+        }
+
+        try {
+            RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
+
+            while (archivo.getFilePointer() < archivo.length()) {
+                int codigo = archivo.readInt();
+                String nombre = archivo.readUTF().trim();
+                boolean disponibilidad = archivo.readBoolean();
+                int creditos = archivo.readInt();
+                double costo = archivo.readDouble();
+                String estado = archivo.readUTF().trim();
+
+                // Comparamos el nombre y confirmamos que el estado sea ACTIVO
+                if (StringUtils.nombresIguales(pNombre, nombre) && "ACTIVO".equalsIgnoreCase(estado)) {
+                    archivo.close();
+                    return new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
+                }
+            }
+
+            archivo.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
+        return null;
     }
     
-    public static boolean actulizarCursoPorCodigo(int pCodigo, String nuevoNombre, double nuevoCosto){
-        
+    // Busca un curso por su código y actualiza únicamente el nombre y el costo
+    public static boolean actualizarCursoPorCodigo(int pCodigo, String nuevoNombre, double nuevoCosto){
         int codigo;
         String nombre;
         boolean disponibilidad;
@@ -120,13 +157,11 @@ public class CursoUtils {
         double costo;
         String estado;
         
-        Curso curso;
-        
         try{
-            
             RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
             
             while (archivo.getFilePointer() < archivo.length()){
+                // Guardamos la posición exacta en la que inicia este registro antes de leerlo
                 long posicion = archivo.getFilePointer();
                 
                 codigo = archivo.readInt();
@@ -134,31 +169,29 @@ public class CursoUtils {
                 disponibilidad = archivo.readBoolean();
                 creditos = archivo.readInt();
                 costo = archivo.readDouble();
-                estado = archivo.readUTF().trim(); // 60
+                estado = archivo.readUTF().trim();
                 
                 if (pCodigo == codigo){
+                    // Formateamos los textos actualizados a sus tamaños fijos
+                    nuevoNombre = StringUtils.formatearCadenaPorBytes(nuevoNombre, 31);
+                    estado = StringUtils.formatearCadenaPorBytes(estado, 8);
                     
-                    nuevoNombre = StringUtils.formatearCadena(nuevoNombre, 31);
-                    estado = StringUtils.formatearCadena(estado, 8);
-                    
-                    // Regresamos al inicio del registro
+                    // Regresamos el puntero al inicio de este registro para sobrescribirlo
                     archivo.seek(posicion);
                     
-                    // Sobrescribimos TODO el curso
+                    // Escribimos los datos actualizados encima del registro anterior
                     archivo.writeInt(codigo);
-                    archivo.writeUTF(nuevoNombre); //Escribimos nuevo nombre
+                    archivo.writeUTF(nuevoNombre);
                     archivo.writeBoolean(disponibilidad);
                     archivo.writeInt(creditos);
-                    archivo.writeDouble(nuevoCosto); //Escribimos nuevo costo
+                    archivo.writeDouble(nuevoCosto);
                     archivo.writeUTF(estado);
                     
                     archivo.close();
-                    
                     return true;
                 }    
-                
             }
-           
+            
             archivo.close();
             
         } catch(Exception e){
@@ -168,6 +201,7 @@ public class CursoUtils {
         return false;
     } 
     
+    // Deshabilita un curso cambiando su estado a "INACTIVO" (borrado lógico)
     public static boolean eliminarCursoPorCodigo(int pCodigo){
         int codigo;
         String nombre;
@@ -175,13 +209,12 @@ public class CursoUtils {
         int creditos;
         double costo;
         String estado;
-        Curso curso;
         
         try{
-            
             RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
             
             while (archivo.getFilePointer() < archivo.length()){
+                // Guardamos la posición donde empieza el registro
                 long posicion = archivo.getFilePointer();
                 
                 codigo = archivo.readInt();
@@ -192,35 +225,31 @@ public class CursoUtils {
                 estado = archivo.readUTF().trim();
                 
                 if (pCodigo == codigo){
-                    
-                    // Cambio de estado = eliminación lógica
+                    // Cambiamos el estado a INACTIVO en lugar de borrar el registro del archivo
                     estado = "INACTIVO";
                     
-                    nombre = StringUtils.formatearCadena(nombre, 31);
-                    estado = StringUtils.formatearCadena(estado, 8);
+                    nombre = StringUtils.formatearCadenaPorBytes(nombre, 31);
+                    estado = StringUtils.formatearCadenaPorBytes(estado, 8);
                     
-                    // Regresamos al inicio del registro
+                    // Volvemos al inicio del registro para aplicar los cambios
                     archivo.seek(posicion);
                     
-                    // Sobrescribimos TODO el curso
                     archivo.writeInt(codigo);
                     archivo.writeUTF(nombre);
                     archivo.writeBoolean(disponibilidad);
                     archivo.writeInt(creditos);
                     archivo.writeDouble(costo);
-                    archivo.writeUTF(estado); //Escribimos el nuevo estado, que sera INACTIVO
+                    archivo.writeUTF(estado);
                     
                     archivo.close();
-                    
                     return true;
                 }
             }
+            archivo.close();
         } catch (Exception e){
             System.out.println("Error: " + e);
         }
         
         return false;
     }
-    
-    
 }
