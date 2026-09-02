@@ -10,12 +10,15 @@ public class Curso {
     public static final int TAMANO_REGISTRO = 60;
 
     // Atributos principales del curso
-    private int codigo;
+    
+    private int codigo; //PK
     private String nombre;
     private boolean disponibilidad;
     private int creditos;
     private double costo;
     private String estado;
+    
+     private int codigoMateria;  //FK
 
     // Constructor para inicializar todos los datos del curso al momento de crearlo
     public Curso(int codigo, String nombre, boolean disponibilidad,

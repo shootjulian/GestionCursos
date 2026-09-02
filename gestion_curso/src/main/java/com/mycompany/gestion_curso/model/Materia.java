@@ -6,7 +6,7 @@ package com.mycompany.gestion_curso.model;
 
 public class Materia {
 
-    private int codigo;
+    private int codigo; //PK
     private String nombre;
     private String facultad;
     private double intensidad;
