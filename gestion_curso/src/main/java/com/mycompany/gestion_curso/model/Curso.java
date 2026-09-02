@@ -1,17 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.gestion_curso.model;
 
 /**
- *
- * @author Julim
+ * Clase Modelo que representa la estructura de datos de un Curso.
+ * Define sus atributos, constructor y métodos de acceso (Getters y Setters).
  */
 public class Curso {
     
+    // Tamaño fijo en bytes reservado para guardar cada registro de curso en el archivo plano
     public static final int TAMANO_REGISTRO = 60;
 
+    // Atributos principales del curso
     private int codigo;
     private String nombre;
     private boolean disponibilidad;
@@ -19,6 +17,7 @@ public class Curso {
     private double costo;
     private String estado;
 
+    // Constructor para inicializar todos los datos del curso al momento de crearlo
     public Curso(int codigo, String nombre, boolean disponibilidad,
                  int creditos, double costo, String estado) {
 
@@ -29,6 +28,8 @@ public class Curso {
         this.costo = costo;
         this.estado = estado;
     }
+
+    // --- MÉTODOS DE ACCESO (GETTERS Y SETTERS) ---
 
     public int getCodigo() {
         return codigo;

@@ -106,12 +106,22 @@ public class GUIPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Desarrollado por Juan, Julian y Angel");
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+
+    //private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+                // TODO add your handling code here:
+                
+                                              
+
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         
         GUIAdicionarCurso gui = new GUIAdicionarCurso();
         gui.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+ 
+    
+
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
@@ -153,6 +163,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
