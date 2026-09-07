@@ -32,6 +32,7 @@ public class CursoUtils {
             archivo.writeInt(curso.getCreditos());
             archivo.writeDouble(curso.getCosto());
             archivo.writeUTF(estado);
+            archivo.writeInt(curso.getCodigoDocente());
 
             archivo.close();
         } catch (Exception e) {
