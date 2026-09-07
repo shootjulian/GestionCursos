@@ -7,7 +7,7 @@ package com.mycompany.gestion_curso.model;
 public class Curso {
     
     // Tamaño fijo en bytes reservado para guardar cada registro de curso en el archivo plano
-    public static final int TAMANO_REGISTRO = 60;
+    public static final int TAMANO_REGISTRO = 64;
 
     // Atributos principales del curso
     
@@ -18,7 +18,7 @@ public class Curso {
     private double costo;
     private String estado;
     
-     private int codigoMateria;  //FK
+    private int codigoDocente; // FK
 
     // Constructor para inicializar todos los datos del curso al momento de crearlo
     public Curso(int codigo, String nombre, boolean disponibilidad,
@@ -30,6 +30,19 @@ public class Curso {
         this.creditos = creditos;
         this.costo = costo;
         this.estado = estado;
+    }
+    
+    public Curso(int codigo, String nombre, boolean disponibilidad,
+                 int creditos, double costo, String estado, int codigoDocente) {
+
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.disponibilidad = disponibilidad;
+        this.creditos = creditos;
+        this.costo = costo;
+        this.estado = estado;
+        this.codigoDocente = codigoDocente;
+        
     }
 
     // --- MÉTODOS DE ACCESO (GETTERS Y SETTERS) ---
@@ -80,5 +93,13 @@ public class Curso {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    
+    public int getCodigoDocente(){
+        return codigoDocente;
+    }
+    
+    public void setCodigoDocente(int codigoDocente){
+        this.codigoDocente = codigoDocente;
     }
 }
