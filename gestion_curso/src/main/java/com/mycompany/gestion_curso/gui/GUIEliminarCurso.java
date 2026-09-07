@@ -12,14 +12,14 @@ import javax.swing.JOptionPane;
  *
  * @author Julim
  */
-public class GUIEliminar extends javax.swing.JFrame {
+public class GUIEliminarCurso extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIEliminar.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIEliminarCurso.class.getName());
 
     /**
      * Creates new form GUIEliminar
      */
-    public GUIEliminar() {
+    public GUIEliminarCurso() {
         initComponents();
         setLocationRelativeTo(this);
         btnEliminar.setEnabled(false);
@@ -284,7 +284,7 @@ public class GUIEliminar extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new GUIEliminar().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new GUIEliminarCurso().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
