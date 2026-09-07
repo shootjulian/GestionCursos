@@ -5,6 +5,7 @@
 package com.mycompany.gestion_curso.gui;
 
 import com.mycompany.gestion_curso.model.Docente;
+import com.mycompany.gestion_curso.servicios.ServicioDocente;
 import javax.swing.JOptionPane;
 
 /**
@@ -166,6 +167,9 @@ public class GUIAdicionarDocente extends javax.swing.JFrame {
             Docente docente = new Docente(codigo, nombre, salario, planta, estado);
             
             
+            ServicioDocente.agregarDocente(docente);
+            
+            JOptionPane.showMessageDialog(this, "¡Docente agregado correctamente!");
             
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, "Error: " + e);
