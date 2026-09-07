@@ -6,12 +6,12 @@ package com.mycompany.gestion_curso.gui;
 
 import com.mycompany.gestion_curso.model.Curso;
 import com.mycompany.gestion_curso.servicios.ServicioCurso;
-import com.mycompany.gestion_curso.utils.CursoUtils;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Julim
+ * @author Julim 
+ * 
  */
 public class GUIActualizarCurso extends javax.swing.JFrame {
     

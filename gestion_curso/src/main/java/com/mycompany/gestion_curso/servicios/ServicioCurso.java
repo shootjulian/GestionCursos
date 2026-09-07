@@ -49,21 +49,11 @@ public class ServicioCurso {
             return false;
         }
 
-<<<<<<< HEAD
-        // Mismo nombre con distinta capitalización = duplicado
-        // Ej: "mAtematicas" y "MatematiCas"
-=======
         // Evitamos nombres duplicados sin importar mayúsculas o minúsculas (ej: "Matemáticas" y "matematicas")
->>>>>>> e5b68e75770fe9380025835e13f526187349b75e
         Curso mismoNombre = CursoUtils.buscarCursoPorNombreIgnorandoMayusculas(curso.getNombre());
         if (mismoNombre != null) {
             return false;
         }
-<<<<<<< HEAD
-
-        CursoUtils.agregarCurso(curso);
-=======
->>>>>>> e5b68e75770fe9380025835e13f526187349b75e
 
         // Si pasa todas las validaciones, se guarda mediante la capa de utilidades
         CursoUtils.agregarCurso(curso);
@@ -124,20 +114,13 @@ public class ServicioCurso {
             return false;
         }
 
-<<<<<<< HEAD
-=======
         // Verificamos que el nuevo nombre no le pertenezca a OTRO curso diferente
->>>>>>> e5b68e75770fe9380025835e13f526187349b75e
         Curso mismoNombre = CursoUtils.buscarCursoPorNombreIgnorandoMayusculas(nuevoNombre);
         if (mismoNombre != null && mismoNombre.getCodigo() != pCodigo) {
             return false;
         }
         
         return CursoUtils.actualizarCursoPorCodigo(pCodigo, nuevoNombre, nuevoCosto);
-<<<<<<< HEAD
-        
-=======
->>>>>>> e5b68e75770fe9380025835e13f526187349b75e
     }
     
     // Cambia el estado del curso a inactivo para simular la eliminación (borrado lógico)

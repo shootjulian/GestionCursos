@@ -42,6 +42,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
 
@@ -84,6 +85,10 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenuItem8.setText("Adicionar");
         jMenuItem8.addActionListener(this::jMenuItem8ActionPerformed);
         jMenu4.add(jMenuItem8);
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("listar");
+        jMenu4.add(jCheckBoxMenuItem1);
 
         jMenuBar1.add(jMenu4);
 
@@ -186,6 +191,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

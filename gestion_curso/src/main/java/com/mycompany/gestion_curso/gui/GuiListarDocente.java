@@ -4,25 +4,19 @@
  */
 package com.mycompany.gestion_curso.gui;
 
-import com.mycompany.gestion_curso.model.Curso;
-import com.mycompany.gestion_curso.servicios.ServicioCurso;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
- * @author Julim
+ * @author leidj
  */
-public class GUIListarCurso extends javax.swing.JFrame {
+public class GuiListarDocente extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIListarCurso.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GuiListarDocente.class.getName());
 
     /**
-     * Creates new form GUIListarCurso
+     * Creates new form GuiListarDocente
      */
-    public GUIListarCurso() {
+    public GuiListarDocente() {
         initComponents();
-        setLocationRelativeTo(this);
     }
 
     /**
@@ -35,32 +29,32 @@ public class GUIListarCurso extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCursos = new javax.swing.JTable();
-        btnListar = new javax.swing.JButton();
+        tblDocentes = new javax.swing.JTable();
+        btnListarDocentes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblCursos.setModel(new javax.swing.table.DefaultTableModel(
+        tblDocentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nombre", "Disponibilidad", "Créditos", "Costo", "Estado"
+                "Código", "Nombre", "Salario", "planta", "estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblCursos);
+        jScrollPane1.setViewportView(tblDocentes);
 
-        btnListar.setText("Listar");
-        btnListar.addActionListener(this::btnListarActionPerformed);
+        btnListarDocentes.setText("Listar");
+        btnListarDocentes.addActionListener(this::btnListarDocentesActionPerformed);
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(this::btnSalirActionPerformed);
@@ -71,66 +65,68 @@ public class GUIListarCurso extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnSalir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
-                .addComponent(btnListar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSalir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 468, Short.MAX_VALUE)
+                        .addComponent(btnListarDocentes)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnListar)
+                    .addComponent(btnListarDocentes)
                     .addComponent(btnSalir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+    private void btnListarDocentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDocentesActionPerformed
         // TODO add your handling code here:
-        
-        this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        // TODO add your handling code here:
-        
         List<Curso> cursos = ServicioCurso.listarCursos();
-        
+
         DefaultTableModel model = (DefaultTableModel) tblCursos.getModel();
 
         // Limpiar la tabla antes de volver a llenarla
         model.setRowCount(0);
-        
+
         for (Curso curso: cursos){
-            
+
             String disponibilidad;
-            
+
             if (curso.isDisponibilidad()){
                 disponibilidad = "Disponible";
             } else{
                 disponibilidad = "No disponible";
             }
-            
+
             model.addRow(new Object[]{
-            curso.getCodigo(),
-            curso.getNombre(),
-            disponibilidad,
-            curso.getCreditos(),
-            curso.getCosto(),
-            curso.getEstado()
-        });
-            
+                curso.getCodigo(),
+                curso.getNombre(),
+                disponibilidad,
+                curso.getCreditos(),
+                curso.getCosto(),
+                curso.getEstado()
+            });
+
         }
-    }//GEN-LAST:event_btnListarActionPerformed
+    }//GEN-LAST:event_btnListarDocentesActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,13 +150,13 @@ public class GUIListarCurso extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new GUIListarCurso().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new GuiListarDocente().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnListarDocentes;
     private javax.swing.JButton btnSalir;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblCursos;
+    private javax.swing.JTable tblDocentes;
     // End of variables declaration//GEN-END:variables
 }

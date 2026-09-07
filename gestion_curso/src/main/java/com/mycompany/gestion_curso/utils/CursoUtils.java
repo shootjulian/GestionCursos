@@ -21,10 +21,7 @@ public class CursoUtils {
             // Movemos el puntero al final del archivo para agregar el registro sin sobrescribir nada
             archivo.seek(archivo.length());
             
-<<<<<<< HEAD
-=======
             // Ajustamos el tamaño del nombre y del estado a un número fijo de bytes
->>>>>>> e5b68e75770fe9380025835e13f526187349b75e
             String nombre = StringUtils.formatearCadenaPorBytes(curso.getNombre(), 31);
             String estado = StringUtils.formatearCadenaPorBytes(curso.getEstado(), 8);
 
@@ -119,38 +116,6 @@ public class CursoUtils {
         return null;
     }
 
-    // Busca un curso ACTIVO cuyo nombre sea igual, ignorando mayúsculas y minúsculas
-    public static Curso buscarCursoPorNombreIgnorandoMayusculas(String pNombre) {
-        if (pNombre == null || pNombre.trim().isEmpty()) {
-            return null;
-        }
-
-        try {
-            RandomAccessFile archivo = new RandomAccessFile("data//curso.txt", "rw");
-
-            while (archivo.getFilePointer() < archivo.length()) {
-                int codigo = archivo.readInt();
-                String nombre = archivo.readUTF().trim();
-                boolean disponibilidad = archivo.readBoolean();
-                int creditos = archivo.readInt();
-                double costo = archivo.readDouble();
-                String estado = archivo.readUTF().trim();
-
-                // Comparamos el nombre y confirmamos que el estado sea ACTIVO
-                if (StringUtils.nombresIguales(pNombre, nombre) && "ACTIVO".equalsIgnoreCase(estado)) {
-                    archivo.close();
-                    return new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
-                }
-            }
-
-            archivo.close();
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
-
-        return null;
-    }
-
     /**
      * Busca un curso ACTIVO cuyo nombre sea igual ignorando mayúsculas.
      */
@@ -185,13 +150,8 @@ public class CursoUtils {
         return null;
     }
     
-<<<<<<< HEAD
-    public static boolean actualizarCursoPorCodigo(int pCodigo, String nuevoNombre, double nuevoCosto){
-        
-=======
     // Busca un curso por su código y actualiza únicamente el nombre y el costo
     public static boolean actualizarCursoPorCodigo(int pCodigo, String nuevoNombre, double nuevoCosto){
->>>>>>> e5b68e75770fe9380025835e13f526187349b75e
         int codigo;
         String nombre;
         boolean disponibilidad;
@@ -218,14 +178,7 @@ public class CursoUtils {
                     nuevoNombre = StringUtils.formatearCadenaPorBytes(nuevoNombre, 31);
                     estado = StringUtils.formatearCadenaPorBytes(estado, 8);
                     
-<<<<<<< HEAD
-                    nuevoNombre = StringUtils.formatearCadenaPorBytes(nuevoNombre, 31);
-                    estado = StringUtils.formatearCadenaPorBytes(estado, 8);
-                    
-                    // Regresamos al inicio del registro
-=======
                     // Regresamos el puntero al inicio de este registro para sobrescribirlo
->>>>>>> e5b68e75770fe9380025835e13f526187349b75e
                     archivo.seek(posicion);
                     
                     // Escribimos los datos actualizados encima del registro anterior
@@ -301,11 +254,4 @@ public class CursoUtils {
         
         return false;
     }
-<<<<<<< HEAD
-    }
-    
-    
-
-=======
 }
->>>>>>> e5b68e75770fe9380025835e13f526187349b75e
