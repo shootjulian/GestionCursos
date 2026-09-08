@@ -222,15 +222,10 @@ public class GUIAdicionarCurso extends javax.swing.JFrame {
             
             Curso curso = new Curso(codigo, nombre, disponibilidad, creditos, costo, estado);
             
-            boolean agregado = ServicioCurso.agregarCurso(curso);
-            
-            if (agregado){
-                JOptionPane.showMessageDialog(this, "¡Curso agregado exitosamente!");
-            } else{
-                JOptionPane.showMessageDialog(this, "Error. Código o nombre repetido (el nombre no distingue mayúsculas).");
-            }
+            ServicioCurso.agregarCurso(curso);
+            JOptionPane.showMessageDialog(this, "¡Curso agregado exitosamente!");
         } catch (Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " + e);
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
         
     }//GEN-LAST:event_btnAgregarActionPerformed

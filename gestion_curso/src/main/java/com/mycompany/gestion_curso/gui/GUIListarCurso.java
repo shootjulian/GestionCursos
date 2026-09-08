@@ -46,11 +46,11 @@ public class GUIListarCurso extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nombre", "Disponibilidad", "Créditos", "Costo", "Estado"
+                "Código", "Nombre", "Disponibilidad", "Créditos", "Costo", "Estado", "Código docente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -105,32 +105,34 @@ public class GUIListarCurso extends javax.swing.JFrame {
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:
         
-        List<Curso> cursos = ServicioCurso.listarCursos();
-        
-        DefaultTableModel model = (DefaultTableModel) tblCursos.getModel();
+        try {
+            List<Curso> cursos = ServicioCurso.listarCursos();
+            DefaultTableModel model = (DefaultTableModel) tblCursos.getModel();
 
-        // Limpiar la tabla antes de volver a llenarla
-        model.setRowCount(0);
-        
-        for (Curso curso: cursos){
-            
-            String disponibilidad;
-            
-            if (curso.isDisponibilidad()){
-                disponibilidad = "Disponible";
-            } else{
-                disponibilidad = "No disponible";
+            // Limpiar la tabla antes de volver a llenarla
+            model.setRowCount(0);
+
+            for (Curso curso : cursos) {
+                String disponibilidad;
+
+                if (curso.isDisponibilidad()) {
+                    disponibilidad = "Disponible";
+                } else {
+                    disponibilidad = "No disponible";
+                }
+
+                model.addRow(new Object[]{
+                    curso.getCodigo(),
+                    curso.getNombre(),
+                    disponibilidad,
+                    curso.getCreditos(),
+                    curso.getCosto(),
+                    curso.getEstado(),
+                    curso.getCodigoDocente()
+                });
             }
-            
-            model.addRow(new Object[]{
-            curso.getCodigo(),
-            curso.getNombre(),
-            disponibilidad,
-            curso.getCreditos(),
-            curso.getCosto(),
-            curso.getEstado()
-        });
-            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnListarActionPerformed
 

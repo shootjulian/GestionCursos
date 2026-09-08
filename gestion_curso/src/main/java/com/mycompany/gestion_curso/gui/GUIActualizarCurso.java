@@ -6,7 +6,6 @@ package com.mycompany.gestion_curso.gui;
 
 import com.mycompany.gestion_curso.model.Curso;
 import com.mycompany.gestion_curso.servicios.ServicioCurso;
-import com.mycompany.gestion_curso.utils.CursoUtils;
 import javax.swing.JOptionPane;
 
 /**
@@ -231,24 +230,19 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
             nuevoNombre = txtNuevoNombre.getText().trim();
             nuevoCosto = Double.parseDouble(txtNuevoCosto.getText().trim());
             
-            boolean actualizado = ServicioCurso.actulizarCursoPorCodigo(codigo, nuevoNombre, nuevoCosto);
-            
-            if (actualizado){
-                JOptionPane.showMessageDialog(this, "¡Curso actualizado!");
-                
-                //Cambiar los text fields con los nuevos atributos
-                txtNombreActual.setText(nuevoNombre);
-                txtCostoActual.setText(String.valueOf(nuevoCosto));
-            } else{
-                JOptionPane.showMessageDialog(this, "Error. No fue posible actualizar el curso, verifique sus datos");
-            }
+            ServicioCurso.actualizarCursoPorCodigo(codigo, nuevoNombre, nuevoCosto);
+            JOptionPane.showMessageDialog(this, "¡Curso actualizado!");
+
+            // Cambiar los text fields con los nuevos atributos
+            txtNombreActual.setText(nuevoNombre);
+            txtCostoActual.setText(String.valueOf(nuevoCosto));
             
             
             
             
             
         } catch (Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " + e);
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
 
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -295,7 +289,7 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
                 txtNombreActual.setText(curso.getNombre());
                 
                 if (curso.isDisponibilidad()){
-                    txtDisponibilidad.setText("Disponibe");
+                    txtDisponibilidad.setText("Disponible");
                 } else{
                     txtDisponibilidad.setText("No disponible");
                 }
@@ -313,7 +307,7 @@ public class GUIActualizarCurso extends javax.swing.JFrame {
             
             
         } catch (Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " + e);
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
