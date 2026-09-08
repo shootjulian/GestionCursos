@@ -1,145 +1,114 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package com.mycompany.gestion_curso.servicios;
 
 import com.mycompany.gestion_curso.model.Curso;
+import com.mycompany.gestion_curso.model.Docente;
 import com.mycompany.gestion_curso.utils.CursoUtils;
+import com.mycompany.gestion_curso.utils.DocenteUtils;
 import java.util.List;
 
 /**
- * Capa de servicio para la gestión de Cursos.
- * Se encarga de validar las reglas del sistema antes de guardar, modificar o consultar datos.
+ * Capa de servicio: contiene validaciones y reglas antes de acceder a persistencia.
  */
 public class ServicioCurso {
-    
-    // Agrega un curso nuevo verificando que sus datos sean válidos y no estén duplicados
-    public static boolean agregarCurso(Curso curso) {
 
-        // Validamos que el objeto recibido no sea nulo
+    public static void agregarCurso(Curso curso) throws Exception {
         if (curso == null) {
-            return false;
+            throw new Exception("El curso no puede ser nulo");
         }
-
-        // El código debe ser un número positivo
         if (curso.getCodigo() <= 0) {
-            return false;
+            throw new Exception("El código del curso debe ser mayor que cero");
         }
-
-        // El nombre no puede estar vacío ni contener solo espacios
         if (curso.getNombre() == null || curso.getNombre().trim().isEmpty()) {
-            return false;
+            throw new Exception("El nombre del curso es obligatorio");
         }
-
-        // Los créditos deben ser mayores a cero
         if (curso.getCreditos() <= 0) {
-            return false;
+            throw new Exception("Los créditos deben ser mayores que cero");
         }
-
-        // El costo no puede ser un valor negativo
         if (curso.getCosto() < 0) {
-            return false;
+            throw new Exception("El costo del curso no puede ser negativo");
         }
-
-        // Verificamos que no exista un curso registrado con el mismo código
-        Curso cursoExistente = CursoUtils.buscarCursoPorCodigo(curso.getCodigo());
-        if (cursoExistente != null) {
-            return false;
+        if (CursoUtils.buscarCursoPorCodigo(curso.getCodigo()) != null) {
+            throw new Exception("Ya existe un curso con ese código");
         }
-
-        // Evitamos nombres duplicados sin importar mayúsculas o minúsculas (ej: "Matemáticas" y "matematicas")
         Curso mismoNombre = CursoUtils.buscarCursoPorNombreIgnorandoMayusculas(curso.getNombre());
         if (mismoNombre != null) {
-            return false;
+            throw new Exception("Ya existe un curso activo con ese nombre");
         }
 
-        // Si pasa todas las validaciones, se guarda mediante la capa de utilidades
-        CursoUtils.agregarCurso(curso);
-        return true;
-    }
-    
-    // Busca un curso por su código, validando primero que el código ingresado sea válido
-    public static Curso buscarCursoPorCodigo(int pCodigo){
-        if (pCodigo <= 0){
-            return null;
+        // La FK se valida solo cuando venga asignada. Esto mantiene compatibles
+        // las GUI actuales, que todavía no capturan el código del docente.
+        if (curso.getCodigoDocente() > 0) {
+            Docente docente = DocenteUtils.buscarDocentePorCodigo(curso.getCodigoDocente());
+            if (docente == null) {
+                throw new Exception("No existe un docente con el código " + curso.getCodigoDocente());
+            }
         }
-        
+
+        CursoUtils.agregarCurso(curso);
+    }
+
+    public static Curso buscarCursoPorCodigo(int pCodigo) throws Exception {
+        if (pCodigo <= 0) {
+            throw new Exception("El código del curso debe ser mayor que cero");
+        }
         return CursoUtils.buscarCursoPorCodigo(pCodigo);
     }
-    
-    // Obtiene la lista completa de cursos almacenados
-    public static List<Curso> listarCursos(){
+
+    public static List<Curso> listarCursos() throws Exception {
         return CursoUtils.leerCursos();
     }
-    
-    // Devuelve la cantidad total de cursos registrados en el sistema
-    public static int contarCursos(){
-        List<Curso> cursos = CursoUtils.leerCursos();
-        return cursos.size();
+
+    public static int contarCursos() throws Exception {
+        return CursoUtils.leerCursos().size();
     }
-    
-    // Recorre todos los cursos guardados para ir acumulando y calculando el costo total
-    public static double sumarCostos(){
+
+    public static double sumarCostos() throws Exception {
         List<Curso> cursos = CursoUtils.leerCursos();
-        
         double total = 0;
-        for(Curso curso: cursos){
+        for (Curso curso : cursos) {
             total += curso.getCosto();
         }
-        
-        
         return total;
     }
-    
-    // Actualiza los datos de un curso existente comprobando las reglas de validación
-    public static boolean actulizarCursoPorCodigo(int pCodigo, String nuevoNombre, double nuevoCosto){
-        
-        if (pCodigo <= 0){
-            return false;
+
+    public static void actualizarCursoPorCodigo(int pCodigo, String nuevoNombre,
+            double nuevoCosto) throws Exception {
+        if (pCodigo <= 0) {
+            throw new Exception("El código del curso debe ser mayor que cero");
         }
-        
-        if (nuevoNombre == null || nuevoNombre.trim().isEmpty()){
-            return false;
+        if (nuevoNombre == null || nuevoNombre.trim().isEmpty()) {
+            throw new Exception("El nuevo nombre es obligatorio");
         }
-        
-        if (nuevoCosto < 0){
-            return false;
-        }
-        
-        // Verificamos que el curso a actualizar realmente exista
-        Curso cursoExistente = CursoUtils.buscarCursoPorCodigo(pCodigo);
-        if (cursoExistente == null){
-            return false;
+        if (nuevoCosto < 0) {
+            throw new Exception("El nuevo costo no puede ser negativo");
         }
 
-        // Verificamos que el nuevo nombre no le pertenezca a OTRO curso diferente
+        Curso cursoExistente = CursoUtils.buscarCursoPorCodigo(pCodigo);
+        if (cursoExistente == null) {
+            throw new Exception("No existe un curso con el código " + pCodigo);
+        }
+
         Curso mismoNombre = CursoUtils.buscarCursoPorNombreIgnorandoMayusculas(nuevoNombre);
         if (mismoNombre != null && mismoNombre.getCodigo() != pCodigo) {
-            return false;
+            throw new Exception("Ya existe otro curso activo con ese nombre");
         }
-        
-        return CursoUtils.actualizarCursoPorCodigo(pCodigo, nuevoNombre, nuevoCosto);
+
+        CursoUtils.actualizarCursoPorCodigo(pCodigo, nuevoNombre, nuevoCosto);
     }
-    
-    // Cambia el estado del curso a inactivo para simular la eliminación (borrado lógico)
-    public static boolean eliminarCursoPorCodigo (int pCodigo){
-        
-        if (pCodigo <= 0){
-            return false;
+
+    public static void eliminarCursoPorCodigo(int pCodigo) throws Exception {
+        if (pCodigo <= 0) {
+            throw new Exception("El código del curso debe ser mayor que cero");
         }
-        
+
         Curso cursoExistente = CursoUtils.buscarCursoPorCodigo(pCodigo);
-        if (cursoExistente == null){
-            return false;
+        if (cursoExistente == null) {
+            throw new Exception("No existe un curso con el código " + pCodigo);
         }
-        
-        // Si el curso ya se encuentra deshabilitado, no se vuelve a procesar
-        if ("INACTIVO".equalsIgnoreCase(cursoExistente.getEstado())){
-            return false;
+        if ("INACTIVO".equalsIgnoreCase(cursoExistente.getEstado())) {
+            throw new Exception("El curso ya se encuentra INACTIVO");
         }
-        
-        return CursoUtils.eliminarCursoPorCodigo(pCodigo);
+
+        CursoUtils.eliminarCursoPorCodigo(pCodigo);
     }
 }

@@ -133,7 +133,7 @@ public class GUIResumenCurso extends javax.swing.JFrame {
             txtSumCostos.setText(String.valueOf(sumaCostos));
             
         } catch (Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " + e);
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
         
         

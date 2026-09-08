@@ -187,18 +187,13 @@ public class GUIEliminarCurso extends javax.swing.JFrame {
 
             codigo = Integer.parseInt(txtCodigo.getText().trim());
             
-            boolean eliminado = ServicioCurso.eliminarCursoPorCodigo(codigo);
-            
-            if (eliminado){
-                JOptionPane.showMessageDialog(this, "¡Curso eliminado correctamente!");
-                txtEstado.setText("INACTIVO");
-                btnEliminar.setEnabled(false);
-            } else{
-                JOptionPane.showConfirmDialog(this, "Error. No fue posible eliminar el curso, Puede que ya esté INACTIVO");
-            }
+            ServicioCurso.eliminarCursoPorCodigo(codigo);
+            JOptionPane.showMessageDialog(this, "¡Curso eliminado correctamente!");
+            txtEstado.setText("INACTIVO");
+            btnEliminar.setEnabled(false);
 
         } catch (Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " + e);
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -236,7 +231,7 @@ public class GUIEliminarCurso extends javax.swing.JFrame {
                 txtNombreActual.setText(curso.getNombre());
 
                 if (curso.isDisponibilidad()){
-                    txtDisponibilidad.setText("Disponibe");
+                    txtDisponibilidad.setText("Disponible");
                 } else{
                     txtDisponibilidad.setText("No disponible");
                 }
@@ -253,7 +248,7 @@ public class GUIEliminarCurso extends javax.swing.JFrame {
             }
 
         } catch (Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " + e);
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 

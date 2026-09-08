@@ -172,7 +172,7 @@ public class GUIAdicionarDocente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "¡Docente agregado correctamente!");
             
         } catch (Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " + e);
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
 
     }//GEN-LAST:event_btnAgregarActionPerformed
