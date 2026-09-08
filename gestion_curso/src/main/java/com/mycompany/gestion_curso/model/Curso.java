@@ -1,24 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.gestion_curso.model;
 
 /**
- *
- * @author Julim
+ * Clase Modelo que representa la estructura de datos de un Curso.
+ * Define sus atributos, constructor y métodos de acceso (Getters y Setters).
  */
 public class Curso {
     
-    public static final int TAMANO_REGISTRO = 60;
+    // Tamaño fijo en bytes reservado para guardar cada registro de curso en el archivo plano
+    public static final int TAMANO_REGISTRO = 64;
 
-    private int codigo;
+    // Atributos principales del curso
+    
+    private int codigo; //PK
     private String nombre;
     private boolean disponibilidad;
     private int creditos;
     private double costo;
     private String estado;
+    
+    private int codigoDocente; // FK
 
+    // Constructor para inicializar todos los datos del curso al momento de crearlo
     public Curso(int codigo, String nombre, boolean disponibilidad,
                  int creditos, double costo, String estado) {
 
@@ -29,6 +31,21 @@ public class Curso {
         this.costo = costo;
         this.estado = estado;
     }
+    
+    public Curso(int codigo, String nombre, boolean disponibilidad,
+                 int creditos, double costo, String estado, int codigoDocente) {
+
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.disponibilidad = disponibilidad;
+        this.creditos = creditos;
+        this.costo = costo;
+        this.estado = estado;
+        this.codigoDocente = codigoDocente;
+        
+    }
+
+    // --- MÉTODOS DE ACCESO (GETTERS Y SETTERS) ---
 
     public int getCodigo() {
         return codigo;
@@ -76,5 +93,13 @@ public class Curso {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    
+    public int getCodigoDocente(){
+        return codigoDocente;
+    }
+    
+    public void setCodigoDocente(int codigoDocente){
+        this.codigoDocente = codigoDocente;
     }
 }
