@@ -111,4 +111,19 @@ public class ServicioCurso {
 
         CursoUtils.eliminarCursoPorCodigo(pCodigo);
     }
+    
+    public static List<Curso> buscarCursosPorDocente(int pCodigoDocente) throws Exception{
+        
+        if (pCodigoDocente <= 0){
+            throw new Exception("El codigo debe ser mayor a cero" + pCodigoDocente);
+        }
+        
+        Docente docente = DocenteUtils.buscarDocentePorCodigo(pCodigoDocente);
+        
+        if (docente == null){
+            throw new Exception("¡No existe un docente con el código!" + pCodigoDocente);
+        }
+        
+        return CursoUtils.buscarCursosPorDocente(pCodigoDocente);
+    }
 }
