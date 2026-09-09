@@ -43,6 +43,8 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItemActualizarDocente = new javax.swing.JMenuItem();
+        Eliminar = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
 
@@ -86,9 +88,17 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenuItem8.addActionListener(this::jMenuItem8ActionPerformed);
         jMenu4.add(jMenuItem8);
 
-        jMenuItem9.setText("Listar");
+        jMenuItem9.setText("Buscar");
         jMenuItem9.addActionListener(this::jMenuItem9ActionPerformed);
         jMenu4.add(jMenuItem9);
+
+        jMenuItemActualizarDocente.setText("Actualizar");
+        jMenuItemActualizarDocente.addActionListener(this::jMenuItemActualizarDocenteActionPerformed);
+        jMenu4.add(jMenuItemActualizarDocente);
+
+        Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(this::EliminarActionPerformed);
+        jMenu4.add(Eliminar);
 
         jMenuBar1.add(jMenu4);
 
@@ -181,10 +191,24 @@ public class GUIPrincipal extends javax.swing.JFrame {
         gui.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {
-        GUIListarDocente gui = new GUIListarDocente();
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        GUIBuscarDocente gui = new GUIBuscarDocente();
         gui.setVisible(true);
-    }
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItemActualizarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemActualizarDocenteActionPerformed
+       GUIActualizarDocente ventanaActualizar = new GUIActualizarDocente();
+    
+    // Hacerla visible en la pantalla
+    ventanaActualizar.setVisible(true); // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemActualizarDocenteActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+GUIEliminarDocente ventanaEliminar = new GUIEliminarDocente();
+ventanaEliminar.setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_EliminarActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -193,6 +217,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Eliminar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -207,5 +232,6 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuItemActualizarDocente;
     // End of variables declaration//GEN-END:variables
 }
