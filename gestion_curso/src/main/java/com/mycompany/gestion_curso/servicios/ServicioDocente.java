@@ -40,4 +40,26 @@ public class ServicioDocente {
     public static int contarDocentes() throws Exception {
         return DocenteUtils.leerDocentes().size();
     }
+   public static void actualizarDocentePorCodigo(int codigo, String nuevoNombre, double nuevoSalario) throws Exception {
+        if (codigo <= 0) {
+            throw new Exception("El código del docente debe ser mayor que cero");
+        }
+        if (nuevoNombre == null || nuevoNombre.trim().isEmpty()) {
+            throw new Exception("El nombre del docente es obligatorio");
+        }
+        if (nuevoSalario < 0) {
+            throw new Exception("El salario del docente no puede ser negativo");
+        }
+
+        // Llamamos al Utils para que haga el trabajo en el archivo
+        DocenteUtils.actualizarDocentePorCodigo(codigo, nuevoNombre, nuevoSalario);
+    }
+   public static void eliminarDocentePorCodigo(int codigo) throws Exception {
+        if (codigo <= 0) {
+            throw new Exception("El código del docente debe ser mayor que cero.");
+        }
+        
+        // Llamamos al Utils para que aplique el borrado lógico en el archivo
+        DocenteUtils.eliminarDocentePorCodigo(codigo);
+    }
 }
