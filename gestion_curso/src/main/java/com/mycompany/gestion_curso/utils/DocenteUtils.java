@@ -6,6 +6,8 @@ package com.mycompany.gestion_curso.utils;
 
 import com.mycompany.gestion_curso.model.Docente;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,6 +20,11 @@ public class DocenteUtils {
     public static void agregarDocente(Docente docente) {
 
         try {
+            java.io.File carpeta = new java.io.File("data");
+            if (!carpeta.exists()) {
+                carpeta.mkdirs();
+            }
+
             RandomAccessFile archivo = new RandomAccessFile(RUTA_ARCHIVO, "rw");
 
             archivo.seek(archivo.length());
@@ -85,5 +92,44 @@ public class DocenteUtils {
         }
 
         return null;
+    }
+
+    public static List<Docente> leerDocentes() {
+        List<Docente> Docentes = new ArrayList<>();
+
+        int codigoDocente; // PK
+        String nombre;
+        double salario;
+        boolean planta;
+        String estado;
+        Docente docente;
+
+        try {
+
+            RandomAccessFile archivo = new RandomAccessFile(RUTA_ARCHIVO, "rw");
+
+            // Mientras el puntero no haya llegado al final del archivo, seguimos leyendo registros
+            while (archivo.getFilePointer() < archivo.length()) {
+
+                codigoDocente = archivo.readInt();
+                // .trim() elimina los espacios sobrantes agregados al formatear la cadena
+                nombre = archivo.readUTF().trim();
+                salario = archivo.readDouble();
+                planta = archivo.readBoolean();
+                estado = archivo.readUTF().trim();
+                
+
+                // Creamos el objeto con los datos leídos y lo agregamos a la lista
+                docente = new Docente(codigoDocente, nombre, salario, planta, estado);
+                Docentes.add(docente);
+            }
+
+            archivo.close();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
+        return Docentes;
     }
 }

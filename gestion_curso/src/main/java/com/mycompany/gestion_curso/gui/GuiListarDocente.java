@@ -4,6 +4,12 @@
  */
 package com.mycompany.gestion_curso.gui;
 
+import com.mycompany.gestion_curso.model.Docente;
+import com.mycompany.gestion_curso.servicios.ServicioDocente;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author leidj
@@ -17,6 +23,7 @@ public class GuiListarDocente extends javax.swing.JFrame {
      */
     public GuiListarDocente() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -33,18 +40,18 @@ public class GuiListarDocente extends javax.swing.JFrame {
         btnListarDocentes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblDocentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nombre", "Salario", "planta", "estado"
+                "Codigo", "Nombre", "Salario", "Planta", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -54,10 +61,18 @@ public class GuiListarDocente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblDocentes);
 
         btnListarDocentes.setText("Listar");
-        btnListarDocentes.addActionListener(this::btnListarDocentesActionPerformed);
+        btnListarDocentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarDocentesActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
-        btnSalir.addActionListener(this::btnSalirActionPerformed);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,40 +106,40 @@ public class GuiListarDocente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListarDocentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDocentesActionPerformed
-        // TODO add your handling code here:
+        
+        try {
+            List<Docente> docentes = ServicioDocente.listarDocentes();
 
-        List<Curso> cursos = ServicioCurso.listarCursos();
+            DefaultTableModel model = (DefaultTableModel) tblDocentes.getModel();
 
-        DefaultTableModel model = (DefaultTableModel) tblCursos.getModel();
+            // Limpiar la tabla antes de volver a llenarla
+            model.setRowCount(0);
 
-        // Limpiar la tabla antes de volver a llenarla
-        model.setRowCount(0);
+            for (Docente docente : docentes) {
 
-        for (Curso curso: cursos){
+                String planta;
 
-            String disponibilidad;
+                if (docente.isPlanta()) {
+                    planta = "De planta";
+                } else {
+                    planta = "No de planta";
+                }
 
-            if (curso.isDisponibilidad()){
-                disponibilidad = "Disponible";
-            } else{
-                disponibilidad = "No disponible";
+                model.addRow(new Object[]{
+                    docente.getCodigoDocente(),
+                    docente.getNombre(),
+                    docente.getSalario(),
+                    planta,
+                    docente.getEstado()
+                });
             }
-
-            model.addRow(new Object[]{
-                curso.getCodigo(),
-                curso.getNombre(),
-                disponibilidad,
-                curso.getCreditos(),
-                curso.getCosto(),
-                curso.getEstado()
-            });
-
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e);
         }
+        
     }//GEN-LAST:event_btnListarDocentesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
@@ -144,13 +159,23 @@ public class GuiListarDocente extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new GuiListarDocente().setVisible(true));
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GuiListarDocente().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

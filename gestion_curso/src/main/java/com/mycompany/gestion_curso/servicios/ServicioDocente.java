@@ -6,6 +6,7 @@ package com.mycompany.gestion_curso.servicios;
 
 import com.mycompany.gestion_curso.model.Docente;
 import com.mycompany.gestion_curso.utils.DocenteUtils;
+import java.util.List;
 
 public class ServicioDocente {
 
@@ -33,5 +34,27 @@ public class ServicioDocente {
 
         // Si todo está correcto, se manda a guardar
         DocenteUtils.agregarDocente(docente);
+    }
+
+    // Obtiene la lista completa de docentes almacenados
+    public static List<Docente> listarDocentes() {
+        return DocenteUtils.leerDocentes();
+    }
+
+    public static int contarDocentes() {
+        List<Docente> docentes = DocenteUtils.leerDocentes();
+        return docentes.size();
+    }
+
+    // Recorre todos los docentes guardados para acumular el total de salarios
+    public static double sumarSalarios() {
+        List<Docente> docentes = DocenteUtils.leerDocentes();
+
+        double total = 0;
+        for (Docente docente : docentes) {
+            total += docente.getSalario();
+        }
+
+        return total;
     }
 }
