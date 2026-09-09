@@ -15,9 +15,12 @@ import java.util.List;
 public class CursoUtils {
 
     public static final String RUTA_ARCHIVO = "data//curso.txt";
+    
+    /**/
     public static final String RUTA_ARCHIVO_TEMPORAL = "data//archivo_temporal.txt";
     public static final String RUTA_ARCHIVO_BACKUP = "data//curso_backup.txt";
 
+    
     // 4 + (2+31) + 1 + 4 + 8 + (2+8) + 4 = 64 bytes
     public static void agregarCurso(Curso curso) throws Exception {
         RandomAccessFile archivo = new RandomAccessFile(RUTA_ARCHIVO, "rw");
@@ -223,4 +226,5 @@ public class CursoUtils {
         Files.move(original, backup, StandardCopyOption.REPLACE_EXISTING);
         Files.move(temporal, original, StandardCopyOption.REPLACE_EXISTING);
     }
+    
 }
