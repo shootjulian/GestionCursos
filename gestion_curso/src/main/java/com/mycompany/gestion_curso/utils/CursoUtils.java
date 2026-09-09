@@ -187,6 +187,35 @@ public class CursoUtils {
         archivo.close();
         throw new Exception("No existe un curso con el código " + pCodigo);
     }
+    
+    
+    public static List<Curso> buscarCursosPorDocente(int pCodigoDocente) throws Exception{
+        
+        List<Curso> cursos = new ArrayList<>();
+        
+        RandomAccessFile archivo = new RandomAccessFile(RUTA_ARCHIVO, "rw");
+        
+        while(archivo.getFilePointer() < archivo.length()){
+            
+            int codigo = archivo.readInt();
+            String nombre = archivo.readUTF().trim();
+            boolean disponibilidad = archivo.readBoolean();
+            int creditos = archivo.readInt();
+            double costo = archivo.readDouble();
+            String estado = archivo.readUTF().trim();
+            int codigoDocente = archivo.readInt();
+            
+            if (pCodigoDocente == codigoDocente){
+                Curso curso = new Curso(codigo, nombre, disponibilidad, creditos, costo, estado, codigoDocente);
+                
+                cursos.add(curso);
+            }
+        }
+        archivo.close();
+        
+        return cursos;
+        
+    }
 
     public static void encontrarEstadosActivos() throws Exception {
         RandomAccessFile archivo = new RandomAccessFile(RUTA_ARCHIVO, "rw");
